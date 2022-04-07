@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Student Score Management</string>
+    <string name="login_title">Quản lý điểm sinh viên</string>
+    <string name="title_activity_bottom_navigation">bottom_navigation</string>
+    <string name="title_navigation_home">Trang chủ</string>
+    <string name="title_navigation_infor">Cá nhân</string>
+</resources>
