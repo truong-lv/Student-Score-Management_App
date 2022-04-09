@@ -15,36 +15,36 @@ public class DBHelper extends SQLiteOpenHelper {
     private static int DB_VERSION=1;
 
     //bang Tai Khoan
-    private static final String TB_TAIKHOAN="tbTaiKhoan";
-    private static final String COL_TAIKHOAN_TEN="taiKhoan_ten";
-    private static final String COL_TAIKHOAN_MATKHAU="taiKhoan_matKhau";
-    private static final String COL_TAIKHOAN_SDT="taiKhoan_sdt";
+    public static final String TB_TAIKHOAN="tbTaiKhoan";
+    public static final String COL_TAIKHOAN_TEN="taiKhoan_ten";
+    public static final String COL_TAIKHOAN_MATKHAU="taiKhoan_matKhau";
+    public static final String COL_TAIKHOAN_SDT="taiKhoan_sdt";
 
     //bang Lop
-    private static final String TB_LOP="tbLop";
-    private static final String COL_LOP_MALOP="lop_maLop";
-    private static final String COL_LOP_CHUNHIEM="lop_chuNhiem";
+    public static final String TB_LOP="tbLop";
+    public static final String COL_LOP_MALOP="lop_maLop";
+    public static final String COL_LOP_CHUNHIEM="lop_chuNhiem";
 
     //bang Hoc Sinh
-    private static final String TB_HOCSINH="tbHocSinh";
-    private static final String COL_HOCSINH_MAHOCSINH="hocSinh_maHocSinh";
-    private static final String COL_HOCSINH_HO="hocSinh_ho";
-    private static final String COL_HOCSINH_TEN="hocSinh_ten";
-    private static final String COL_HOCSINH_PHAI="hocSinh_phai";
-    private static final String COL_HOCSINH_NGAYSINH="hocSinh_ngaySinh";
-    private static final String COL_HOCSINH_MALOP="hocSinh_maLop";
+    public static final String TB_HOCSINH="tbHocSinh";
+    public static final String COL_HOCSINH_MAHOCSINH="hocSinh_maHocSinh";
+    public static final String COL_HOCSINH_HO="hocSinh_ho";
+    public static final String COL_HOCSINH_TEN="hocSinh_ten";
+    public static final String COL_HOCSINH_PHAI="hocSinh_phai";
+    public static final String COL_HOCSINH_NGAYSINH="hocSinh_ngaySinh";
+    public static final String COL_HOCSINH_MALOP="hocSinh_maLop";
 
     //bang Mon Hoc
-    private static final String TB_MONHOC="tbMonHoc";
-    private static final String COL_MONHOC_MAMONHOC="monHoc_maMonHoc";
-    private static final String COL_MONHOC_TENMONHOC="monHoc_tenMonHoc";
-    private static final String COL_MONHOC_HESO="monHoc_heSo";
+    public static final String TB_MONHOC="tbMonHoc";
+    public static final String COL_MONHOC_MAMONHOC="monHoc_maMonHoc";
+    public static final String COL_MONHOC_TENMONHOC="monHoc_tenMonHoc";
+    public static final String COL_MONHOC_HESO="monHoc_heSo";
 
     //bang Diem
-    private static final String TB_DIEM="tbDiem";
-    private static final String COL_DIEM_MAHOCSINH="diem_maHocSinh";
-    private static final String COL_DIEM_MAMONHOC="diem_maMonHoc";
-    private static final String COL_DIEM_DIEM="diem_diem";
+    public static final String TB_DIEM="tbDiem";
+    public static final String COL_DIEM_MAHOCSINH="diem_maHocSinh";
+    public static final String COL_DIEM_MAMONHOC="diem_maMonHoc";
+    public static final String COL_DIEM_DIEM="diem_diem";
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
