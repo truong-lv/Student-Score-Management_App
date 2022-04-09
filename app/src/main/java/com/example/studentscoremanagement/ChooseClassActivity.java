@@ -2,11 +2,13 @@ package com.example.studentscoremanagement;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -18,6 +20,7 @@ public class ChooseClassActivity extends AppCompatActivity {
     ArrayList<String> dataString = new ArrayList<>();
 
     Button btnConfirm;
+    ImageButton ibtInfor;
     Spinner spnClass;
     DBHelper database;
 
@@ -42,6 +45,14 @@ public class ChooseClassActivity extends AppCompatActivity {
                 Toast.makeText(ChooseClassActivity.this, "Lớp: "+ spnClass.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
             }
         });
+
+        ibtInfor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ChooseClassActivity.this, UserInforActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void Initialize() {
@@ -54,6 +65,7 @@ public class ChooseClassActivity extends AppCompatActivity {
 
     private void addControl() {
         btnConfirm = findViewById(R.id.btnConfirm);
+        ibtInfor = findViewById(R.id.ibtInfor);
         spnClass = findViewById(R.id.spnClass);
     }
 }
