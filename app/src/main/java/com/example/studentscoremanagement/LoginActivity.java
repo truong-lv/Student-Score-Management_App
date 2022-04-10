@@ -17,6 +17,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText txtUserName, txtPass;
     DBHelper database;
 
+    public static final String USER_INFOR="USER_INFOR";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,12 @@ public class LoginActivity extends AppCompatActivity {
                 TaiKhoan tk =new TaiKhoan(username,pass);
                 if(tk.checkLogin(database)){
                     Intent intent = new Intent(LoginActivity.this, ChooseClassActivity.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putString(DBHelper.COL_TAIKHOAN_TEN,tk.getTenTaiKhoan());
+                    bundle.putString(DBHelper.COL_TAIKHOAN_MATKHAU,tk.getMatKhau());
+                    bundle.putString(DBHelper.COL_TAIKHOAN_SDT,tk.getSdt());
+                    bundle.putString(DBHelper.COL_TAIKHOAN_ANH,tk.getAnh());
+                    intent.putExtra(USER_INFOR,bundle);
                     startActivity(intent);
                 }else{
                     Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không hợp lệ", Toast.LENGTH_SHORT).show();
