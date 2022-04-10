@@ -10,10 +10,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.studentscoremanagement.Model.TaiKhoan;
+
 public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     EditText txtUserName, txtPass;
     DBHelper database;
+
+    public static final String USER_INFOR="USER_INFOR";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,14 +30,26 @@ public class LoginActivity extends AppCompatActivity {
 
     private void setEvent() {
         database=new DBHelper(this);
-        Cursor testData=database.GetData("SELECT * FROM tbTaiKhoan");
-        Toast.makeText(LoginActivity.this, "Độ dài: "+testData.getCount(), Toast.LENGTH_SHORT).show();
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
-                Intent intent = new Intent(LoginActivity.this, ChooseClassActivity.class);
-                startActivity(intent);
+                String username=txtUserName.getText().toString();
+                String pass=txtPass.getText().toString();
+                TaiKhoan tk =new TaiKhoan(username,pass);
+                if(tk.checkLogin(database)){
+                    Intent intent = new Intent(LoginActivity.this, ChooseClassActivity.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putString(DBHelper.COL_TAIKHOAN_TEN,tk.getTenTaiKhoan());
+                    bundle.putString(DBHelper.COL_TAIKHOAN_MATKHAU,tk.getMatKhau());
+                    bundle.putString(DBHelper.COL_TAIKHOAN_SDT,tk.getSdt());
+                    bundle.putString(DBHelper.COL_TAIKHOAN_ANH,tk.getAnh());
+                    intent.putExtra(USER_INFOR,bundle);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không hợp lệ", Toast.LENGTH_SHORT).show();
+                }
+//
+
             }
         });
     }
@@ -43,4 +59,5 @@ public class LoginActivity extends AppCompatActivity {
         txtPass=findViewById(R.id.txtMK);
         btnLogin=findViewById(R.id.btnLogin);
     }
+
 }

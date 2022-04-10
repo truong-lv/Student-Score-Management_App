@@ -19,6 +19,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COL_TAIKHOAN_TEN="taiKhoan_ten";
     public static final String COL_TAIKHOAN_MATKHAU="taiKhoan_matKhau";
     public static final String COL_TAIKHOAN_SDT="taiKhoan_sdt";
+    public static final String COL_TAIKHOAN_ANH="taiKhoan_anh";
 
     //bang Lop
     public static final String TB_LOP="tbLop";
@@ -55,7 +56,8 @@ public class DBHelper extends SQLiteOpenHelper {
         String scripTBTaiKhoan="CREATE TABLE "+ TB_TAIKHOAN+"("+
                 COL_TAIKHOAN_TEN+" TEXT PRIMARY KEY,"+
                 COL_TAIKHOAN_MATKHAU+" TEXT NOT NULL," +
-                COL_TAIKHOAN_SDT+" TEXT NOT NULL)";
+                COL_TAIKHOAN_SDT+" TEXT NOT NULL," +
+                COL_TAIKHOAN_ANH+" TEXT)";
 
         String scripTBLop="CREATE TABLE "+ TB_LOP+"("+
                 COL_LOP_MALOP+" TEXT PRIMARY KEY,"+
@@ -131,11 +133,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
 
     private void addDataDefault(SQLiteDatabase database){
-        database.execSQL("INSERT INTO "+TB_TAIKHOAN+" VALUES ('truonglv','123456','0329385635')");
-        database.execSQL("INSERT INTO "+TB_TAIKHOAN+" VALUES ('nghia','123456','0347360427')");
-        database.execSQL("INSERT INTO "+TB_TAIKHOAN+" VALUES ('nam','123456','0334704530')");
-        database.execSQL("INSERT INTO "+TB_TAIKHOAN+" VALUES ('vu','123456','0327551251')");
-        database.execSQL("INSERT INTO "+TB_TAIKHOAN+" VALUES ('sang','123456','0922060313')");
+        database.execSQL("INSERT INTO "+TB_TAIKHOAN+" VALUES ('truonglv','123456','0329385635',null)");
+        database.execSQL("INSERT INTO "+TB_TAIKHOAN+" VALUES ('nghia','123456','0347360427',null)");
+        database.execSQL("INSERT INTO "+TB_TAIKHOAN+" VALUES ('nam','123456','0334704530',null)");
+        database.execSQL("INSERT INTO "+TB_TAIKHOAN+" VALUES ('vu','123456','0327551251',null)");
+        database.execSQL("INSERT INTO "+TB_TAIKHOAN+" VALUES ('sang','123456','0922060313',null)");
 
         database.execSQL("INSERT INTO "+TB_LOP+" VALUES ('12A1','Lù Vĩnh Trường')");
         database.execSQL("INSERT INTO "+TB_LOP+" VALUES ('12A2','Nguyễn Hải Nam')");
