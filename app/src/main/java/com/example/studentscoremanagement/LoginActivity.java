@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.studentscoremanagement.Model.TaiKhoan;
+
 public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     EditText txtUserName, txtPass;
@@ -26,14 +28,20 @@ public class LoginActivity extends AppCompatActivity {
 
     private void setEvent() {
         database=new DBHelper(this);
-        Cursor testData=database.GetData("SELECT * FROM tbTaiKhoan");
-        Toast.makeText(LoginActivity.this, "Độ dài: "+testData.getCount(), Toast.LENGTH_SHORT).show();
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
-                Intent intent = new Intent(LoginActivity.this, ChooseClassActivity.class);
-                startActivity(intent);
+                String username=txtUserName.getText().toString();
+                String pass=txtPass.getText().toString();
+                TaiKhoan tk =new TaiKhoan(username,pass);
+                if(tk.checkLogin(database)){
+                    Intent intent = new Intent(LoginActivity.this, ChooseClassActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không hợp lệ", Toast.LENGTH_SHORT).show();
+                }
+//
+
             }
         });
     }
@@ -43,4 +51,5 @@ public class LoginActivity extends AppCompatActivity {
         txtPass=findViewById(R.id.txtMK);
         btnLogin=findViewById(R.id.btnLogin);
     }
+
 }
