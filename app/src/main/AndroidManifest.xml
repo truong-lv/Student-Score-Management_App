@@ -9,9 +9,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentScoreManagement">
+
         <activity
             android:name=".DSSV"
             android:exported="true" />
+        <activity
+            android:name=".UserInforActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChooseClassActivity"
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">
