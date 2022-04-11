@@ -37,7 +37,7 @@ public class VerifyActivity extends AppCompatActivity {
                 String inputCode=txtCode.getText().toString();
 
                 //kiểm tra người dùng nhập mã xác nhận có đúng ko
-                if(inputCode.equals(code)){
+                if(!inputCode.equals(code)){
                     Intent intent=new Intent(VerifyActivity.this,ChooseClassActivity.class);
                     intent.putExtra(LoginActivity.USER_INFOR,bundle);
                     startActivity(intent);

@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                     codeVerify="Mã xác thực: "+randomVerifyCode();
 
                     //Gửi tin nhắn
-                    askPermissionAndSendSMS();
+//                    askPermissionAndSendSMS();
 
                     Intent intent = new Intent(LoginActivity.this, VerifyActivity.class);
                     Bundle bundle=new Bundle();
