@@ -25,6 +25,13 @@ public class TaiKhoan {
         this.sdt=sdt;
     }
 
+    public TaiKhoan(String tenTaiKhoan, String matKhau, String sdt, String anh) {
+        this.tenTaiKhoan = tenTaiKhoan;
+        this.matKhau = matKhau;
+        this.sdt = sdt;
+        this.anh = anh;
+    }
+
     public String getTenTaiKhoan() {
         return tenTaiKhoan;
     }
@@ -66,5 +73,15 @@ public class TaiKhoan {
             return true;
         }
         return false;
+    }
+
+    public void saveToDatabase (DBHelper db){
+        String query = "UPDATE " + DBHelper.TB_TAIKHOAN
+                + " SET " + DBHelper.COL_TAIKHOAN_MATKHAU + " = '" + matKhau + "', "
+                    + DBHelper.COL_TAIKHOAN_SDT + " = '" + sdt + "', "
+                    + DBHelper.COL_TAIKHOAN_ANH + " = '" + anh + "' "
+                + " WHERE "+DBHelper.COL_TAIKHOAN_TEN+"='"+this.tenTaiKhoan+"'";
+
+        db.QueryData(query);
     }
 }
