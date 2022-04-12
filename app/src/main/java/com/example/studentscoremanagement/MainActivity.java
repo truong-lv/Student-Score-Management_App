@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setEvent() {
-
+        Toast.makeText(this,"Xin chao", Toast.LENGTH_SHORT).show();
     }
 
     private void addControl() {

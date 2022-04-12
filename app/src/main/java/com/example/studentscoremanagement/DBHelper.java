@@ -197,6 +197,13 @@ public class DBHelper extends SQLiteOpenHelper {
         database.execSQL("INSERT INTO "+TB_MONHOC+" VALUES (7,'GDQP','1')");
 
         database.execSQL("INSERT INTO "+TB_DIEM+" VALUES (1,1,7.5)");
+        database.execSQL("INSERT INTO "+TB_DIEM+" VALUES (1,2,8)");
+        database.execSQL("INSERT INTO "+TB_DIEM+" VALUES (1,3,8.5)");
+        database.execSQL("INSERT INTO "+TB_DIEM+" VALUES (1,4,7)");
+        database.execSQL("INSERT INTO "+TB_DIEM+" VALUES (1,5,7)");
+        database.execSQL("INSERT INTO "+TB_DIEM+" VALUES (1,6,6)");
+        database.execSQL("INSERT INTO "+TB_DIEM+" VALUES (1,7,8)");
+
         database.execSQL("INSERT INTO "+TB_DIEM+" VALUES (8,1,7.5)");
         database.execSQL("INSERT INTO "+TB_DIEM+" VALUES (16,1,7.5)");
         database.execSQL("INSERT INTO "+TB_DIEM+" VALUES (24,1,7.5)");
