@@ -109,14 +109,14 @@
         <Button
             android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:text="<< Trước"
+            android:text="&lt;&lt; Trước"
             android:textStyle="bold"
             android:backgroundTint="#FFBF44"
             />
         <Button
             android:layout_width="110dp"
             android:layout_height="wrap_content"
-            android:text="Sau >>"
+            android:text="Sau &gt;&gt;"
             android:textStyle="bold"
             android:backgroundTint="#FFBF44"
             android:layout_marginLeft="10dp" />
