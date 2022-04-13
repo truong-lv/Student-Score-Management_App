@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -14,7 +15,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.studentscoremanagement.Model.AdapterHocSinh;
+import com.example.studentscoremanagement.Adapter.AdapterHocSinh;
 import com.example.studentscoremanagement.Model.HocSinh;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class DSSV extends AppCompatActivity {
     ArrayList<HocSinh> arrayHocSinh;
     AdapterHocSinh adapter;
 
+    String idClass;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,11 +38,16 @@ public class DSSV extends AppCompatActivity {
 
 
 
-
+        getClassId();
         //lvHocSinh.setAdapter(adapter);
         setControl();
         setEvent();
         GetDataHocSinh();
+    }
+
+    private void getClassId() {
+        Intent intent=getIntent();
+        idClass=intent.getStringExtra(ChooseClassActivity.ID_CLASS);
     }
 
     private void setControl() {
@@ -60,7 +68,7 @@ public class DSSV extends AppCompatActivity {
 
     // để data ra mh
     private void GetDataHocSinh(){
-        Cursor dataHS = database.GetData("SELECT * FROM "+DBHelper.TB_HOCSINH);//nghe ko bn ko nghe==>ông out meet r
+        Cursor dataHS = database.GetData("SELECT * FROM "+DBHelper.TB_HOCSINH+" WHERE "+DBHelper.COL_HOCSINH_MALOP+"='"+idClass+"'");//nghe ko bn ko nghe==>ông out meet r
 //ng
         dataHS.moveToFirst();
         do

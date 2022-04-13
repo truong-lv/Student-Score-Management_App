@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+<<<<<<< HEAD
         <entry key="..\:/LTApp/gki/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2365" />
         <entry key="..\:/LTApp/gki/app/src/main/res/drawable/backgound_button.xml" value="0.1" />
         <entry key="..\:/LTApp/gki/app/src/main/res/drawable/background_login.xml" value="0.2365" />
@@ -21,18 +22,56 @@
         <entry key="..\:/LTApp/gki/app/src/main/res/layout/themhocsinh.xml" value="0.33" />
         <entry key="..\:/LTApp/gki/app/src/main/res/layout/xoa_sua_hs.xml" value="0.33" />
         <entry key="..\:/LTApp/mayAo/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.36666666666666664" />
+=======
+        <entry key="..\:/Mobile-GK/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.181" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/drawable/background_login.xml" value="0.181" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/drawable/custom_btn_back_forward.xml" value="0.181" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/drawable/custom_button.xml" value="0.181" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/drawable/custom_spinner.xml" value="0.181" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.181" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.181" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.181" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/drawable/style_button.xml" value="0.181" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/drawable/style_edit_text.xml" value="0.181" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/drawable/vien.xml" value="0.181" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/layout/activity_choose_class.xml" value="0.25416666666666665" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/layout/activity_student_manager.xml" value="0.264" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/layout/activity_user_infor.xml" value="0.25416666666666665" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/layout/activity_verify.xml" value="0.25416666666666665" />
+>>>>>>> 766c3701c414370337dfa82bfb0c53444eef3b42
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.113" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/drawable/background_content.xml" value="0.206" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/drawable/background_login.xml" value="0.206" />
+<<<<<<< HEAD
+=======
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/drawable/background_report_item.xml" value="0.206" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/drawable/custom_button.xml" value="0.206" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/drawable/custom_edit_text1.xml" value="0.206" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/drawable/custom_spinner.xml" value="0.206" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/drawable/custom_table_report.xml" value="0.206" />
+>>>>>>> 766c3701c414370337dfa82bfb0c53444eef3b42
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/drawable/ic_black_graduation.xml" value="0.113" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/drawable/ic_launcher_background.xml" value="0.113" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.206" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/drawable/style_button.xml" value="0.206" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_bottom_navigation.xml" value="0.22826086956521738" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_choose_class.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_login.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+<<<<<<< HEAD
+=======
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_report.xml" value="0.264" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_student_manager.xml" value="0.22826086956521738" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_user_infor.xml" value="0.22826086956521738" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_verify.xml" value="0.22826086956521738" />
+>>>>>>> 766c3701c414370337dfa82bfb0c53444eef3b42
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/fragment_dashboard.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/fragment_home.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/fragment_notifications.xml" value="0.22826086956521738" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/report_item.xml" value="0.2" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/report_item_table.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.113" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.113" />

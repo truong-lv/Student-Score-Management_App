@@ -1,4 +1,4 @@
-package com.example.studentscoremanagement.Model;
+package com.example.studentscoremanagement.Adapter;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,6 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.studentscoremanagement.Model.HocSinh;
 import com.example.studentscoremanagement.R;
 
 import java.util.ArrayList;
@@ -52,12 +53,12 @@ public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,hocSinh.getMaHocSinh(),Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,hocSinh.getMaHS(),Toast.LENGTH_SHORT).show();
 
             }
         });
         Log.d("print",String.valueOf(getCount()));
-        txtid.setText(hocSinh.getMaHocSinh());
+        txtid.setText(hocSinh.getMaHS());
         txtHo.setText(hocSinh.getHo());
         txtTen.setText(hocSinh.getTen());
         txtPhai.setText(hocSinh.getPhai());

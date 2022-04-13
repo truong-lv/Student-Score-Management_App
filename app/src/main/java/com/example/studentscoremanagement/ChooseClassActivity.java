@@ -28,6 +28,7 @@ public class ChooseClassActivity extends AppCompatActivity {
     Spinner spnClass;
     DBHelper database;
 
+    public static final String ID_CLASS="ID_CLASS";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +48,9 @@ public class ChooseClassActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(ChooseClassActivity.this, "Lớp: "+ spnClass.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ChooseClassActivity.this, DSSV.class);
+                intent.putExtra(ID_CLASS,spnClass.getSelectedItem().toString());
+                startActivity(intent);
             }
         });
 
