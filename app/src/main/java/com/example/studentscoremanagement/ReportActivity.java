@@ -51,6 +51,7 @@ public class ReportActivity extends AppCompatActivity {
     ReportItemAdapter reportItemAdapter;
     DBHelper dbHelper;
 
+    String idClass;
     // declaring width and height
     // for our PDF file.
     int pageHeight = 1120;
@@ -73,9 +74,10 @@ public class ReportActivity extends AppCompatActivity {
     }
 
     private void setEvent() {
+        getIdClass();
         dbHelper = new DBHelper(this);
         ArrayList<HocSinh> hocSinhs = new ArrayList<>();
-        Cursor cursor = dbHelper.GetData("SELECT * FROM " + DBHelper.TB_HOCSINH + " WHERE " + DBHelper.COL_HOCSINH_MALOP + "='12A1'");
+        Cursor cursor = dbHelper.GetData("SELECT * FROM " + DBHelper.TB_HOCSINH + " WHERE " + DBHelper.COL_HOCSINH_MALOP + "='"+idClass+"'");
         cursor.moveToFirst();
         do {
             HocSinh hocSinh = new HocSinh();
@@ -92,13 +94,18 @@ public class ReportActivity extends AppCompatActivity {
         for (HocSinh hs : hocSinhs) {
             diemHocSinhDTOS.add(hs.getStudentScore(dbHelper));
         }
-
-        tvClassId.setText("12A1");
-        tvTeacherName.setText("Huỳnh Phước Sang");
         reportItemAdapter = new ReportItemAdapter(ReportActivity.this, R.layout.report_item, diemHocSinhDTOS);
         lvReport.setAdapter(reportItemAdapter);
 
         setEventExport();
+    }
+
+    private void getIdClass() {
+        Intent intent=getIntent();
+        idClass=intent.getStringExtra(DSSV.CLASS_ID);
+        String teacherName=intent.getStringExtra(DSSV.TEACHER_NAME);
+        tvClassId.setText(idClass);
+        tvTeacherName.setText(teacherName);
     }
 
     private void setControl() {
@@ -193,7 +200,7 @@ public class ReportActivity extends AppCompatActivity {
         canvas.drawText("ĐIỂM TỔNG KẾT HỌC SINH.", 396, 120, title);
 
         title.setTextSize(15);
-        //canvas.drawRe
+        //canvas.drawRect(20,);
         canvas.drawText("This is sample document which we have created.", 396, 560, title);
 
         // after adding all attributes to our

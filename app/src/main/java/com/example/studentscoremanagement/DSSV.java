@@ -13,6 +13,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.studentscoremanagement.Adapter.AdapterHocSinh;
@@ -28,8 +29,12 @@ public class DSSV extends AppCompatActivity {
     ListView lvHocSinh;
     ArrayList<HocSinh> arrayHocSinh;
     AdapterHocSinh adapter;
+    TextView textGV;
 
     String idClass;
+
+    public static final String CLASS_ID="CLASS_ID";
+    public static final String TEACHER_NAME="TEACHER_NAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +59,9 @@ public class DSSV extends AppCompatActivity {
         database=new DBHelper(DSSV.this);
         lvHocSinh = (ListView) findViewById(R.id.listViewMSHS);
         btnThem=findViewById(R.id.buttonThem);
+        buttonBC=findViewById(R.id.buttonBC);
         arrayHocSinh = new ArrayList<>();
+        textGV=findViewById(R.id.textGV);
     }
 
     private void setEvent() {
@@ -64,10 +71,13 @@ public class DSSV extends AppCompatActivity {
                 ThemSinhVien();
             }
         });
-        btnThem.setOnClickListener(new View.OnClickListener() {
+        buttonBC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ThemSinhVien();
+                Intent intent=new Intent(DSSV.this,ReportActivity.class);
+                intent.putExtra(CLASS_ID,idClass);
+                intent.putExtra(TEACHER_NAME,textGV.getText());
+                startActivity(intent);
             }
         });
     }
