@@ -61,7 +61,9 @@ public class LoginActivity extends AppCompatActivity {
                     bundle.putString(DBHelper.COL_TAIKHOAN_TEN,tk.getTenTaiKhoan());
                     bundle.putString(DBHelper.COL_TAIKHOAN_MATKHAU,tk.getMatKhau());
                     bundle.putString(DBHelper.COL_TAIKHOAN_SDT,tk.getSdt());
-                    bundle.putString(DBHelper.COL_TAIKHOAN_ANH,tk.getAnh());
+//                    Log.d("print", "login activity " + tk.getAnh());
+//                    bundle.putByteArray(DBHelper.COL_TAIKHOAN_ANH, null);
+//                    intent.putExtra(DBHelper.COL_TAIKHOAN_ANH, tk.getAnh());
                     intent.putExtra(USER_INFOR,bundle);
 
                     intent.putExtra(VERIFY_CODE,codeVerify);
