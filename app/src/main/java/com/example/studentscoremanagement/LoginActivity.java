@@ -49,14 +49,14 @@ public class LoginActivity extends AppCompatActivity {
                 String username=txtUserName.getText().toString();
                 String pass=txtPass.getText().toString();
                 TaiKhoan tk =new TaiKhoan(username,pass);
-                if(true){
+                if(tk.checkLogin(database)){
                     phoneNumber=tk.getSdt();
                     codeVerify="Mã xác thực: "+randomVerifyCode();
 
                     //Gửi tin nhắn
 //                    askPermissionAndSendSMS();
 
-                    Intent intent = new Intent(LoginActivity.this, ReportActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, VerifyActivity.class);
                     Bundle bundle=new Bundle();
                     bundle.putString(DBHelper.COL_TAIKHOAN_TEN,tk.getTenTaiKhoan());
                     bundle.putString(DBHelper.COL_TAIKHOAN_MATKHAU,tk.getMatKhau());

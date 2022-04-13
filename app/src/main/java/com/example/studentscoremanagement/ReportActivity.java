@@ -193,6 +193,7 @@ public class ReportActivity extends AppCompatActivity {
         canvas.drawText("ĐIỂM TỔNG KẾT HỌC SINH.", 396, 120, title);
 
         title.setTextSize(15);
+        //canvas.drawRe
         canvas.drawText("This is sample document which we have created.", 396, 560, title);
 
         // after adding all attributes to our
