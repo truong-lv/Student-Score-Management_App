@@ -1,10 +1,13 @@
 package com.example.studentscoremanagement;
 
+import android.app.Dialog;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -67,7 +70,7 @@ public class StudentManagerActivity extends AppCompatActivity {
             public void onClick(View view) {
                 maHS -= 1;
                 layThongTin(database);
-                tbL.removeViewsInLayout(1, 7);
+                tbL.removeViewsInLayout(1, tongMH);
                 layMonHoc(database);
                 loadTrangThaiButton();
             }
@@ -78,7 +81,7 @@ public class StudentManagerActivity extends AppCompatActivity {
             public void onClick(View view) {
                 maHS += 1;
                 layThongTin(database);
-                tbL.removeViewsInLayout(1, 7);
+                tbL.removeViewsInLayout(1, tongMH);
                 layMonHoc(database);
                 loadTrangThaiButton();
             }
@@ -86,9 +89,7 @@ public class StudentManagerActivity extends AppCompatActivity {
     }
 
     private void loadTrangThaiButton() {
-
         tvTongMH.setText(""+tongMH);
-        tongMH=0;
 
         if(maHS == Integer.parseInt(dsHS.get(0)))
         {
@@ -130,12 +131,13 @@ public class StudentManagerActivity extends AppCompatActivity {
     private void layMonHoc(DBHelper db) {
         String maMH, tenMH;
         String diem;
+        int tongSoMH = 0;
 
         Cursor data = db.GetData("SELECT " + DBHelper.COL_MONHOC_MAMONHOC + ", " + DBHelper.COL_MONHOC_TENMONHOC
                 + " FROM " + DBHelper.TB_MONHOC);
         while(data.moveToNext())
         {
-            tongMH += 1 ;
+            tongSoMH += 1 ;
             maMH = data.getString(0);
             tenMH = data.getString(1);
             TableRow tbRow = new TableRow(this);
@@ -173,10 +175,21 @@ public class StudentManagerActivity extends AppCompatActivity {
             tv3.setTextColor(Color.WHITE);
             tv3.setGravity(Gravity.CENTER);
             tv3.setTextSize(20);
+            int id = Integer.parseInt(maMH);
+            String diemNhap = diem;
+            tv3.setId(id);
+            tv3.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    dialogNhapDiem(diemNhap, id);
+                    return false;
+                }
+            });
             tbRow.addView(tv3);
             tbRow.setPadding(0,30,0,10);
             tbL.addView(tbRow);
         }
+        tongMH = tongSoMH;
     }
 
     private void layDSLop(DBHelper db) {
@@ -188,4 +201,101 @@ public class StudentManagerActivity extends AppCompatActivity {
             dsHS.add(data);
         }
     }
+
+
+    private void dialogNhapDiem(String diem, int maMH){
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_nhap_diem);
+
+        EditText edtNhapDiem = (EditText) dialog.findViewById(R.id.edtNhapDiem);
+        Button btnThem = (Button) dialog.findViewById(R.id.btnThem);
+        Button btnHuy = (Button) dialog.findViewById(R.id.btnHuy);
+
+        edtNhapDiem.setText(diem);
+
+        btnThem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String diemMoi = edtNhapDiem.getText().toString().trim();
+                if(TextUtils.isEmpty(diemMoi))
+                {
+                    Toast.makeText(StudentManagerActivity.this, "Vui lòng nhập điểm cho môn học", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Float diemMoiFloat = isFloat(diemMoi);
+                    if(diemMoiFloat == -1)
+                    {
+                        Toast.makeText(StudentManagerActivity.this, "Điểm nhập phải thuộc khoảng từ 0 đến 10", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (diemMoiFloat == -2)
+                    {
+                        Toast.makeText(StudentManagerActivity.this, "Vui lòng nhập đúng định dạng điểm", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        //Nếu chưa có điểm thì insert điểm mới vào
+                        if(diem == "."){
+                            insertDiem(database, maMH , diemMoiFloat);
+                            Toast.makeText(StudentManagerActivity.this, "Nhập điểm thành công", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                        // Nếu có điểm rồi thì update điểm
+                        else
+                        {
+                            updateDiem(database, maMH, diemMoiFloat);
+                            Toast.makeText(StudentManagerActivity.this, "Sửa điểm thành công", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                        }
+                    }
+                }
+            }
+        });
+
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    private float isFloat(String diemString)
+    {
+        try {
+            float diemFloat = Float.parseFloat(diemString);
+            if(diemFloat >= 0 && diemFloat <=10 )
+            {
+                return diemFloat;
+            }
+            else
+            {
+                return -1;
+            }
+
+        }
+        catch (NumberFormatException e)
+        {
+        }
+        return -2;
+    }
+
+    private void insertDiem(DBHelper db, int maMH, float diemMoi)
+    {
+        db.QueryData("INSERT INTO " + DBHelper.TB_DIEM + " VALUES (" + maHS + ", " +  maMH + ", " + diemMoi + ")" );
+        tbL.removeViewsInLayout(1, 7);
+        layMonHoc(database);
+    }
+
+    private void updateDiem(DBHelper db, int maMH, float diemMoi)
+    {
+        db.QueryData("UPDATE " + DBHelper.TB_DIEM + " SET " + DBHelper.COL_DIEM_DIEM + " = " + diemMoi
+                + " WHERE " + DBHelper.COL_DIEM_MAHOCSINH + " = " + maHS + " AND " + DBHelper.COL_DIEM_MAMONHOC + " = " + maMH);
+        tbL.removeViewsInLayout(1, 7);
+        layMonHoc(database);
+    }
+
 }
