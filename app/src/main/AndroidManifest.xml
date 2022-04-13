@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentScoreManagement">
         <activity
+            android:name=".ReportActivity"
+            android:exported="false" />
+        <activity
             android:name=".VerifyActivity"
             android:exported="false" />
         <activity
