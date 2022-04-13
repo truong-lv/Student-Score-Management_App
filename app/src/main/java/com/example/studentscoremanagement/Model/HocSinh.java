@@ -27,6 +27,14 @@ public class HocSinh {
         this.maLop = maLop;
     }
 
+    public HocSinh(String maHS, String ho, String ten, String phai, String ngaySinh) {
+        this.maHS = maHS;
+        this.ho = ho;
+        this.ten = ten;
+        this.phai = phai;
+        this.ngaySinh = ngaySinh;
+    }
+
     public String getMaHS() {
         return maHS;
     }

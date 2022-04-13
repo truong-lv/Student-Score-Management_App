@@ -38,8 +38,10 @@
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/drawable/style_edit_text.xml" value="0.206" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_bottom_navigation.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_choose_class.xml" value="0.22826086956521738" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_dssv.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_login.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_pdf_viewer.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_report.xml" value="0.264" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_student_manager.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_user_infor.xml" value="0.22826086956521738" />
@@ -47,6 +49,7 @@
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/fragment_dashboard.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/fragment_home.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/fragment_notifications.xml" value="0.22826086956521738" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/pdf_viewer.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/report_item.xml" value="0.2" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/report_item_table.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />

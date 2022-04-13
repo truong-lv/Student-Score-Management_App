@@ -57,7 +57,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 COL_TAIKHOAN_TEN+" TEXT PRIMARY KEY,"+
                 COL_TAIKHOAN_MATKHAU+" TEXT NOT NULL," +
                 COL_TAIKHOAN_SDT+" TEXT NOT NULL," +
-                COL_TAIKHOAN_ANH+" TEXT)";
+                COL_TAIKHOAN_ANH+" BLOB)";
 
         String scripTBLop="CREATE TABLE "+ TB_LOP+"("+
                 COL_LOP_MALOP+" TEXT PRIMARY KEY,"+
