@@ -1,62 +1,73 @@
 package com.example.studentscoremanagement.Model;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.example.studentscoremanagement.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class AdapterHocSinh extends BaseAdapter {
-    Context context;
-    ArrayList<HocSinh>list;
+public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
 
-    public AdapterHocSinh(Context context, ArrayList<HocSinh> list) {
+     Context context;
+      int layout;
+     ArrayList<HocSinh> hocSinhList;
+
+    public AdapterHocSinh(@NonNull Context context, int resource, @NonNull ArrayList<HocSinh> objects) {
+        super(context, resource, objects);
         this.context = context;
-        this.list = list;
+        this.layout = resource;
+        this.hocSinhList = objects;
     }
+
 
     @Override
     public int getCount() {
-        return list.size();
+        return hocSinhList.size();
     }
 
+
+
+    @NonNull
     @Override
-    public Object getItem(int i) {
-        return null;
-    }
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        convertView= LayoutInflater.from(context).inflate(layout,null);
 
-    @Override
-    public long getItemId(int i) {
-        return 0;
-    }
+        TextView txtid=  convertView.findViewById(R.id.textViewMSHS);
+        TextView txtHo=   convertView.findViewById(R.id.textViewHO);
+        TextView txtTen= convertView.findViewById(R.id.textViewTEN);
+        TextView txtPhai= convertView.findViewById(R.id.textViewPHAI);
+        TextView txtNgaySinh= convertView.findViewById(R.id.textViewNS);
 
-    @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View row = inflater.inflate(R.layout.activity_dssv, null);
-        TextView mshs = (TextView) row.findViewById(R.id.textViewMSHS);
-        TextView ho = (TextView) row.findViewById(R.id.textViewHO);
-        TextView ten = (TextView) row.findViewById(R.id.textViewTEN);
-        TextView phai = (TextView) row.findViewById(R.id.textViewPHAI);
-        TextView ngaysinh = (TextView) row.findViewById(R.id.textViewNS);
-        Button them = (Button) row.findViewById(R.id.buttonThem);
-        Button xoa = (Button) row.findViewById(R.id.buttonXoa);
-        Button sua = (Button) row.findViewById(R.id.buttonSua);
+        HocSinh hocSinh = hocSinhList.get(position);
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context,hocSinh.getMaHocSinh(),Toast.LENGTH_SHORT).show();
 
-        HocSinh hocSinh = list.get(i);
+            }
+        });
+        Log.d("print",String.valueOf(getCount()));
+        txtid.setText(hocSinh.getMaHocSinh());
+        txtHo.setText(hocSinh.getHo());
+        txtTen.setText(hocSinh.getTen());
+        txtPhai.setText(hocSinh.getPhai());
+        txtNgaySinh.setText(hocSinh.getNgaySinh());
 
-       mshs.setText(hocSinh.getMaHocSinh() + "");
-       ho.setText(hocSinh.getHo());
-       ten.setText(hocSinh.getTen());
-       phai.setText(hocSinh.getPhai());
-       ngaysinh.setText(hocSinh.getNgaySinh());
 
-        return row;
+        return convertView;
     }
 }
+

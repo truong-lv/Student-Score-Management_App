@@ -1,11 +1,15 @@
 package com.example.studentscoremanagement;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -68,4 +72,5 @@ public class ChooseClassActivity extends AppCompatActivity {
         ibtInfor = findViewById(R.id.ibtInfor);
         spnClass = findViewById(R.id.spnClass);
     }
+
 }
