@@ -24,7 +24,7 @@ public class DSSV extends AppCompatActivity {
 
     DBHelper database;
 
-    Button btnThem;
+    Button btnThem,buttonBC;
     ListView lvHocSinh;
     ArrayList<HocSinh> arrayHocSinh;
     AdapterHocSinh adapter;
@@ -58,6 +58,12 @@ public class DSSV extends AppCompatActivity {
     }
 
     private void setEvent() {
+        btnThem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ThemSinhVien();
+            }
+        });
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
