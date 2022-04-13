@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -53,15 +54,15 @@ public class ChooseClassActivity extends AppCompatActivity {
                 Intent tempIntent = getIntent();
                 Bundle tempBundle = tempIntent.getBundleExtra(LoginActivity.USER_INFOR);
                 TaiKhoan user = new TaiKhoan(tempBundle.getString(DBHelper.COL_TAIKHOAN_TEN), tempBundle.getString(DBHelper.COL_TAIKHOAN_MATKHAU),
-                        tempBundle.getString(DBHelper.COL_TAIKHOAN_SDT), tempBundle.getString(DBHelper.COL_TAIKHOAN_ANH));
-
+                        tempBundle.getString(DBHelper.COL_TAIKHOAN_SDT));
+//                Log.d("print", "choose class activity " + tempIntent.getByteArrayExtra(DBHelper.COL_TAIKHOAN_ANH));
                 Intent intent = new Intent(ChooseClassActivity.this, UserInforActivity.class);
 
                 Bundle bundle=new Bundle();
                 bundle.putString(DBHelper.COL_TAIKHOAN_TEN,user.getTenTaiKhoan());
                 bundle.putString(DBHelper.COL_TAIKHOAN_MATKHAU,user.getMatKhau());
                 bundle.putString(DBHelper.COL_TAIKHOAN_SDT,user.getSdt());
-                bundle.putString(DBHelper.COL_TAIKHOAN_ANH,user.getAnh());
+//                bundle.putByteArray(DBHelper.COL_TAIKHOAN_ANH,user.getAnh());
                 intent.putExtra(LoginActivity.USER_INFOR,bundle);
                 startActivity(intent);
 

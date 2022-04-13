@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,7 +43,9 @@ public class LoginActivity extends AppCompatActivity {
                     bundle.putString(DBHelper.COL_TAIKHOAN_TEN,tk.getTenTaiKhoan());
                     bundle.putString(DBHelper.COL_TAIKHOAN_MATKHAU,tk.getMatKhau());
                     bundle.putString(DBHelper.COL_TAIKHOAN_SDT,tk.getSdt());
-                    bundle.putString(DBHelper.COL_TAIKHOAN_ANH,tk.getAnh());
+//                    Log.d("print", "login activity " + tk.getAnh());
+//                    bundle.putByteArray(DBHelper.COL_TAIKHOAN_ANH, null);
+//                    intent.putExtra(DBHelper.COL_TAIKHOAN_ANH, tk.getAnh());
                     intent.putExtra(USER_INFOR,bundle);
                     startActivity(intent);
                 }else{

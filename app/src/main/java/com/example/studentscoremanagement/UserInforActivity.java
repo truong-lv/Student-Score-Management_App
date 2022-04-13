@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,6 +22,8 @@ import android.widget.Toast;
 
 import com.example.studentscoremanagement.Model.TaiKhoan;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.logging.Logger;
 
 public class UserInforActivity extends AppCompatActivity implements EventListener{
@@ -32,12 +36,14 @@ public class UserInforActivity extends AppCompatActivity implements EventListene
     EditText txtPassword, txtPhoneNumber;
 
     private static final int PICK_IMAGE = 100;
-    Uri imageUri;
+    DBHelper database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_infor);
+
+        database = new DBHelper(this);
 
         setControl();
         setEvent();
@@ -47,13 +53,13 @@ public class UserInforActivity extends AppCompatActivity implements EventListene
     private void setDataByBundle() {
         Intent intent = getIntent();
         Bundle bundle = intent.getBundleExtra(LoginActivity.USER_INFOR);
-        user = new TaiKhoan(bundle.getString(DBHelper.COL_TAIKHOAN_TEN), bundle.getString(DBHelper.COL_TAIKHOAN_MATKHAU),
-                bundle.getString(DBHelper.COL_TAIKHOAN_SDT), bundle.getString(DBHelper.COL_TAIKHOAN_ANH));
         if (bundle == null)
         {
             Toast.makeText(this, "bundle is null", Toast.LENGTH_SHORT).show();
             return;
         }
+        user = new TaiKhoan(bundle.getString(DBHelper.COL_TAIKHOAN_TEN));
+        user.updateDataFromDataBase(database);
 
         txtAccount.setText("", TextView.BufferType.EDITABLE);
         txtPassword.setText("", TextView.BufferType.EDITABLE);
@@ -63,16 +69,15 @@ public class UserInforActivity extends AppCompatActivity implements EventListene
         txtPassword.setText(user.getMatKhau(), TextView.BufferType.EDITABLE);
         txtPhoneNumber.setText(user.getSdt(), TextView.BufferType.EDITABLE);
 
-        String avatar = user.getAnh();
-        if (avatar == null || avatar.isEmpty())
+        byte[] avatar = user.getAnh();
+        if (avatar == null)
         {
             //set default avatar
         }
         else
         {
-            imageUri = Uri.parse(avatar);
-            imUserAvatar.setImageURI(imageUri);
-            Log.d("print", "created " + user.getAnh());
+            Bitmap bitmap = BitmapFactory.decodeByteArray(avatar, 0, avatar.length);
+            imUserAvatar.setImageBitmap(bitmap);
         }
     }
 
@@ -110,11 +115,32 @@ public class UserInforActivity extends AppCompatActivity implements EventListene
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE){
-            user.setAnh(data.getData().toString());
-            Log.d("print", user.getAnh());
-            imageUri = Uri.parse(user.getAnh());
-            imUserAvatar.setImageURI(imageUri);
+        if (resultCode == RESULT_OK && requestCode == PICK_IMAGE) {
+            Uri selectedImage = data.getData();
+            Bitmap bm = null;
+            try {
+                bm = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            if (bm == null)
+            {
+                Toast.makeText(this, "image is null", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            //convert image to byte array
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            bm.compress(Bitmap.CompressFormat.PNG, 100, out);
+            byte[] buffer = out.toByteArray();
+
+            //set image to user
+            user.setAnh(buffer);
+
+            //display the image into avatar
+            Bitmap bitmap = BitmapFactory.decodeByteArray(user.getAnh(), 0, user.getAnh().length);
+            imUserAvatar.setImageBitmap(bitmap);
         }
     }
 
@@ -132,17 +158,10 @@ public class UserInforActivity extends AppCompatActivity implements EventListene
         user.setMatKhau(txtPassword.getText().toString());
         user.setSdt(txtPhoneNumber.getText().toString());
 
-        DBHelper database = new DBHelper(UserInforActivity.this);
         //save data
         user.saveToDatabase(database);
-        Intent intent = new Intent(this, getClass());
-        Bundle bundle=new Bundle();
-        bundle.putString(DBHelper.COL_TAIKHOAN_TEN,user.getTenTaiKhoan());
-        bundle.putString(DBHelper.COL_TAIKHOAN_MATKHAU,user.getMatKhau());
-        bundle.putString(DBHelper.COL_TAIKHOAN_SDT,user.getSdt());
-        bundle.putString(DBHelper.COL_TAIKHOAN_ANH,user.getAnh());
-        intent.putExtra(LoginActivity.USER_INFOR,bundle);
-        startActivity(intent);
-//        finish();
+
+        //update successfully
+        Toast.makeText(this, "Cập nhập thành công", Toast.LENGTH_SHORT).show();
     }
 }

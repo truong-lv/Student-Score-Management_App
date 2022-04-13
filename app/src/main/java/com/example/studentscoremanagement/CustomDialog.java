@@ -43,7 +43,7 @@ public class CustomDialog extends Dialog implements android.view.View.OnClickLis
                 onYesClicked.doSomething();
                 break;
             case R.id.btn_no:
-                dismiss();
+//                dismiss();
                 break;
             default:
                 break;
