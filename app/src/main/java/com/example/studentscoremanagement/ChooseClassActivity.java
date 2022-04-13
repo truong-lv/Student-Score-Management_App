@@ -1,12 +1,16 @@
 package com.example.studentscoremanagement;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -26,6 +30,7 @@ public class ChooseClassActivity extends AppCompatActivity {
     Spinner spnClass;
     DBHelper database;
 
+    public static final String ID_CLASS="ID_CLASS";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +50,9 @@ public class ChooseClassActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(ChooseClassActivity.this, "Lớp: "+ spnClass.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ChooseClassActivity.this, DSSV.class);
+                intent.putExtra(ID_CLASS,spnClass.getSelectedItem().toString());
+                startActivity(intent);
             }
         });
 
@@ -86,4 +94,5 @@ public class ChooseClassActivity extends AppCompatActivity {
         ibtInfor = findViewById(R.id.ibtInfor);
         spnClass = findViewById(R.id.spnClass);
     }
+
 }
