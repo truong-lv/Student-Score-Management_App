@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -17,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.studentscoremanagement.Model.Lop;
+import com.example.studentscoremanagement.Model.TaiKhoan;
 
 import java.util.ArrayList;
 
@@ -33,7 +35,7 @@ public class ChooseClassActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_class);
-        
+
         addControl();
         setEvent();
     }
@@ -57,8 +59,24 @@ public class ChooseClassActivity extends AppCompatActivity {
         ibtInfor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent tempIntent = getIntent();
+                Bundle tempBundle = tempIntent.getBundleExtra(LoginActivity.USER_INFOR);
+                TaiKhoan user = new TaiKhoan(tempBundle.getString(DBHelper.COL_TAIKHOAN_TEN), tempBundle.getString(DBHelper.COL_TAIKHOAN_MATKHAU),
+                        tempBundle.getString(DBHelper.COL_TAIKHOAN_SDT));
+//                Log.d("print", "choose class activity " + tempIntent.getByteArrayExtra(DBHelper.COL_TAIKHOAN_ANH));
                 Intent intent = new Intent(ChooseClassActivity.this, UserInforActivity.class);
+
+                Bundle bundle=new Bundle();
+                bundle.putString(DBHelper.COL_TAIKHOAN_TEN,user.getTenTaiKhoan());
+                bundle.putString(DBHelper.COL_TAIKHOAN_MATKHAU,user.getMatKhau());
+                bundle.putString(DBHelper.COL_TAIKHOAN_SDT,user.getSdt());
+//                bundle.putByteArray(DBHelper.COL_TAIKHOAN_ANH,user.getAnh());
+                intent.putExtra(LoginActivity.USER_INFOR,bundle);
                 startActivity(intent);
+
+//                intent.putExtra(LoginActivity.USER_INFOR,bundle);
+//
+//                startActivity(intent);
             }
         });
     }
