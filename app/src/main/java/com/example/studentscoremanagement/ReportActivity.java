@@ -31,6 +31,7 @@ import android.widget.Toast;
 
 import com.example.studentscoremanagement.Adapter.ReportItemAdapter;
 import com.example.studentscoremanagement.Model.DiemHocSinhDTO;
+import com.example.studentscoremanagement.Model.DiemMonHocDTO;
 import com.example.studentscoremanagement.Model.HocSinh;
 
 import java.io.File;
@@ -56,7 +57,8 @@ public class ReportActivity extends AppCompatActivity {
     // for our PDF file.
     int pageHeight = 1120;
     int pagewidth = 792;
-
+    //Điểm bắt đầu vẽ bảng tính theo chiều dọc
+    int y0=200;
     // creating a bitmap variable
     // for storing our images
     Bitmap bmp, scaledbmp;
@@ -151,7 +153,7 @@ public class ReportActivity extends AppCompatActivity {
         // in which we will be passing our pageWidth,
         // pageHeight and number of pages and after that
         // we are calling it to create our PDF.
-        PdfDocument.PageInfo mypageInfo = new PdfDocument.PageInfo.Builder(pagewidth, pageHeight, 1).create();
+        PdfDocument.PageInfo mypageInfo = new PdfDocument.PageInfo.Builder(pagewidth, pageHeight*(diemHocSinhDTOS.size()/2), 1).create();
 
         // below line is used for setting
         // start page for our PDF file.
@@ -167,7 +169,7 @@ public class ReportActivity extends AppCompatActivity {
         // second parameter is position from left
         // third parameter is position from top and last
         // one is our variable for paint.
-        canvas.drawBitmap(scaledbmp, 30, 30, paint);
+        canvas.drawBitmap(scaledbmp, 30, 20, paint);
 
         // below line is used for adding typeface for
         // our text which we will be adding in our PDF file.
@@ -185,23 +187,39 @@ public class ReportActivity extends AppCompatActivity {
         // the first parameter is our text, second parameter
         // is position from start, third parameter is position from top
         // and then we are passing our variable of paint which is title.
-        canvas.drawText("Quản lý điểm sinh viên", 120, 60, title);
+        canvas.drawText("Quản lý điểm sinh viên", 85, 50, title);
 
         // similarly we are creating another text and in this
         // we are aligning this text to center of our PDF file.
         title.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         title.setColor(ContextCompat.getColor(this, R.color.purple_200));
 
-        title.setTextSize(30);
+        title.setTextSize(26);
         title.setColor(Color.RED);
         // below line is used for setting
         // our text to center of PDF.
         title.setTextAlign(Paint.Align.CENTER);
+        title.setFakeBoldText(true);
         canvas.drawText("ĐIỂM TỔNG KẾT HỌC SINH.", 396, 120, title);
 
+        title.setColor(Color.BLACK);
         title.setTextSize(15);
-        //canvas.drawRect(20,);
-        canvas.drawText("This is sample document which we have created.", 396, 560, title);
+        title.setFakeBoldText(false);
+        canvas.drawText("Lớp:", 200, 160, title);
+        canvas.drawText("Giáo viên chủ nhiệm:", 500, 160, title);
+
+        title.setFakeBoldText(true);
+        title.setColor(ContextCompat.getColor(this, R.color.purple_200));
+        canvas.drawText(idClass, 235, 160, title);
+        canvas.drawText(tvTeacherName.getText().toString(), 625, 160, title);
+
+
+        for(int i=0;i<diemHocSinhDTOS.size();i++){
+            drawTable(canvas,title,5,4,diemHocSinhDTOS.get(i),i+1);
+        }
+
+
+        //canvas.drawText("This is sample document which we have created.", 396, 560, title);
 
         // after adding all attributes to our
         // PDF file we will be finishing our page.
@@ -225,7 +243,7 @@ public class ReportActivity extends AppCompatActivity {
 
             // below line is to print toast message
             // on completion of PDF generation.
-            Toast.makeText(ReportActivity.this, "Xuất PDF thành công.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ReportActivity.this, "Xuất PDF thành công vào: \n"+path, Toast.LENGTH_LONG).show();
         } catch (IOException e) {
             // below line is used
             // to handle error
@@ -235,6 +253,63 @@ public class ReportActivity extends AppCompatActivity {
         // location we are closing our PDF file.
         pdfDocument.close();
         //viewPdf(path,fileName);
+    }
+    private void drawRectangle(Canvas canvas, Paint paint,int x, int y, int width, int height, String text){
+        canvas.drawLine(x,y,x+width,y,paint);
+        canvas.drawLine(x,y,x,y+height,paint);
+        canvas.drawLine(x+width,y,x+width,y+height,paint);
+        canvas.drawLine(x,y+height,x+width,y+height,paint);
+        canvas.drawText(text,x+width/2-(text.length()/2)*3,y+height/2+5,paint);
+    }
+
+    private void drawTable(Canvas canvas, Paint paint, int row, int col, DiemHocSinhDTO diemHocSinhDTO, int stt){
+        int x0=100,x=600;
+        int y0Temp=y0;
+        int width=pagewidth-200,height=25;
+        paint.setTextAlign(Paint.Align.LEFT);
+        paint.setColor(Color.BLACK);
+        paint.setTextSize(15);
+        paint.setFakeBoldText(false);
+
+        canvas.drawText("STT:"+stt, x0, y0+=height, paint);
+        canvas.drawText("Mã học sinh: "+diemHocSinhDTO.getHocSinh().getMaHS(), x0, y0+=height, paint);
+        canvas.drawText("Tên: "+diemHocSinhDTO.getHocSinh().getHo()+" "+diemHocSinhDTO.getHocSinh().getTen(), x0, y0+=height, paint);
+        canvas.drawText("Giới tính: "+diemHocSinhDTO.getHocSinh().getPhai(), x0, y0+=height, paint);
+        canvas.drawText("Ngày sinh: "+diemHocSinhDTO.getHocSinh().getNgaySinh(), x0, y0+=height, paint);
+        canvas.drawText("Điểm tổng kết:", x0, y0+=height, paint);
+
+        ArrayList<DiemMonHocDTO> diemMonHocDTOs=diemHocSinhDTO.getDiemMonHocDTOS();
+
+
+        //Draw header table
+        y0 += height;
+        paint.setFakeBoldText(true);
+        drawRectangle(canvas, paint, x0, y0, width / col, height, "STT");
+        drawRectangle(canvas, paint, x0 + (width / col), y0, width / col, height, "Tên MH");
+        drawRectangle(canvas, paint, x0 + (width / col) * 2, y0, width / col, height, "Hệ số");
+        drawRectangle(canvas, paint, x0 + (width / col) * 3, y0, width / col, height, "Điểm");
+
+        //draw content table
+        paint.setFakeBoldText(false);
+        float scoreAvg=0;
+        for(int i=0;i<diemMonHocDTOs.size();i++)
+        {
+            y0+=height;
+            DiemMonHocDTO diemMonHoc=diemMonHocDTOs.get(i);
+            drawRectangle(canvas,paint,x0,y0,width/col,height,String.valueOf(i+1));
+            drawRectangle(canvas,paint,x0+(width/col),y0,width/col,height,diemMonHoc.getTenMH());
+            drawRectangle(canvas,paint,x0+(width/col)*2,y0,width/col,height,String.valueOf(diemMonHoc.getHeSo()));
+            String diem= diemMonHoc.getDiem()==-1?".":String.valueOf(diemMonHoc.getDiem());
+            drawRectangle(canvas,paint,x0+(width/col)*3,y0,width/col,height,diem);
+            scoreAvg+=diemMonHoc.getDiem()==-1?0:diemMonHoc.getDiem();
+        }
+        scoreAvg=(float) Math.round((scoreAvg/diemMonHocDTOs.size()) * 10) / 10;
+        canvas.drawText("Tổng số môn học: "+diemMonHocDTOs.size(), x0, y0+=height*2, paint);
+        canvas.drawText("Điểm trung bình: "+scoreAvg, x0+200, y0, paint);
+        y0+=height;
+
+        drawRectangle(canvas, paint, x0-10, y0Temp-10, width +20, y0-y0Temp, "");
+        y0+=height*2;
     }
 
     // Method for opening a pdf file

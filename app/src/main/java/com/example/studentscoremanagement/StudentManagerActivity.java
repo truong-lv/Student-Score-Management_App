@@ -1,8 +1,10 @@
 package com.example.studentscoremanagement;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Gravity;
@@ -25,13 +27,15 @@ import java.util.List;
 public class StudentManagerActivity extends AppCompatActivity {
 
     DBHelper database;
-    TextView tvHoTen, tvNgaySinh, tvLop, tvPhai, tvTongMH, tvDiemTB;
+    TextView tvMaHS, tvHoTen, tvNgaySinh, tvLop, tvPhai, tvTongMH, tvDiemTB;
     Button btnTruoc, btnSau;
     String maLop;
     TableLayout tbL;
     List<String> dsHS = new ArrayList<>();
-    int maHS = 1;
+    int maHS;
     int tongMH = 0;
+    int tongHeSo = 0;
+    float tongDiem = 0;
 
 
     @Override
@@ -44,6 +48,7 @@ public class StudentManagerActivity extends AppCompatActivity {
     }
 
     private void addControl() {
+        tvMaHS = findViewById(R.id.tvMaHS);
         tvHoTen = findViewById(R.id.tvHoTen);
         tvLop = findViewById(R.id.tvLop);
         tvNgaySinh = findViewById(R.id.tvNgaySinh);
@@ -59,10 +64,16 @@ public class StudentManagerActivity extends AppCompatActivity {
     private void setEvent() {
         database = new DBHelper(this);
 
+        Intent i = getIntent();
+        String value = i.getStringExtra("maHS");
+        maHS = Integer.parseInt(value);
+
         layThongTin(database);
         layMonHoc(database);
         layDSLop(database);
         loadTrangThaiButton();
+        loadDiemTrungBinh();
+
 
 
         btnTruoc.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +84,7 @@ public class StudentManagerActivity extends AppCompatActivity {
                 tbL.removeViewsInLayout(1, tongMH);
                 layMonHoc(database);
                 loadTrangThaiButton();
+                loadDiemTrungBinh();
             }
         });
 
@@ -84,8 +96,22 @@ public class StudentManagerActivity extends AppCompatActivity {
                 tbL.removeViewsInLayout(1, tongMH);
                 layMonHoc(database);
                 loadTrangThaiButton();
+                loadDiemTrungBinh();
             }
         });
+    }
+
+    private void loadDiemTrungBinh() {
+        float diemTB = tongDiem / tongHeSo;
+        String diemLamTron = String.format("%.1f", diemTB);
+        if(diemLamTron.equals("NaN"))
+        {
+            tvDiemTB.setText(".");
+        }
+        else
+            tvDiemTB.setText(diemLamTron);
+        tongDiem = 0;
+        tongHeSo = 0;
     }
 
     private void loadTrangThaiButton() {
@@ -120,6 +146,7 @@ public class StudentManagerActivity extends AppCompatActivity {
             ngaysinh = data.getString(3);
             malop = data.getString(4);
             maLop = malop;
+            tvMaHS.setText(""+maHS);
             tvHoTen.setText(ho + " " + ten);
             tvLop.setText(malop);
             tvNgaySinh.setText(ngaysinh);
@@ -132,14 +159,16 @@ public class StudentManagerActivity extends AppCompatActivity {
         String maMH, tenMH;
         String diem;
         int tongSoMH = 0;
+        String heSo;
 
         Cursor data = db.GetData("SELECT " + DBHelper.COL_MONHOC_MAMONHOC + ", " + DBHelper.COL_MONHOC_TENMONHOC
-                + " FROM " + DBHelper.TB_MONHOC);
+               + ", " + DBHelper.COL_MONHOC_HESO + " FROM " + DBHelper.TB_MONHOC);
         while(data.moveToNext())
         {
             tongSoMH += 1 ;
             maMH = data.getString(0);
             tenMH = data.getString(1);
+            heSo = data.getString(2);
             TableRow tbRow = new TableRow(this);
 
             TextView tv = new TextView(this);
@@ -147,6 +176,8 @@ public class StudentManagerActivity extends AppCompatActivity {
             tv.setTextColor(Color.WHITE);
             tv.setGravity(Gravity.CENTER);
             tv.setTextSize(20);
+            tv.setBackgroundResource(R.drawable.vien_den);
+            tv.setPadding(0,20,0,20);
             tbRow.addView(tv);
 
             TextView tv2 = new TextView(this);
@@ -154,6 +185,8 @@ public class StudentManagerActivity extends AppCompatActivity {
             tv2.setTextColor(Color.WHITE);
             tv2.setGravity(Gravity.CENTER);
             tv2.setTextSize(20);
+            tv2.setBackgroundResource(R.drawable.vien_den);
+            tv2.setPadding(0,20,0,20);
             tbRow.addView(tv2);
 
             Cursor dataDiem = db.GetData("SELECT " + DBHelper.COL_DIEM_DIEM + " FROM " + DBHelper.TB_DIEM
@@ -163,18 +196,23 @@ public class StudentManagerActivity extends AppCompatActivity {
             if(dataDiem.moveToNext())
             {
                 diem = ""+dataDiem.getFloat(0);
+                tongDiem += dataDiem.getFloat(0)*Integer.parseInt(heSo);
+                tongHeSo += Integer.parseInt(heSo);
             }
             else
             {
                 diem = ".";
             }
 
+//            Toast.makeText(this, tongDiem + ", " + tongHeSo, Toast.LENGTH_SHORT).show();
 
             TextView tv3 = new TextView(this);
             tv3.setText("" + diem);
             tv3.setTextColor(Color.WHITE);
             tv3.setGravity(Gravity.CENTER);
             tv3.setTextSize(20);
+            tv3.setBackgroundResource(R.drawable.vien_den);
+            tv3.setPadding(0,20,0,20);
             int id = Integer.parseInt(maMH);
             String diemNhap = diem;
             tv3.setId(id);
@@ -186,7 +224,6 @@ public class StudentManagerActivity extends AppCompatActivity {
                 }
             });
             tbRow.addView(tv3);
-            tbRow.setPadding(0,30,0,10);
             tbL.addView(tbRow);
         }
         tongMH = tongSoMH;
@@ -212,7 +249,10 @@ public class StudentManagerActivity extends AppCompatActivity {
         Button btnThem = (Button) dialog.findViewById(R.id.btnThem);
         Button btnHuy = (Button) dialog.findViewById(R.id.btnHuy);
 
-        edtNhapDiem.setText(diem);
+        if(diem.equals("."))
+            edtNhapDiem.setText("");
+        else
+            edtNhapDiem.setText(diem);
 
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -288,6 +328,7 @@ public class StudentManagerActivity extends AppCompatActivity {
         db.QueryData("INSERT INTO " + DBHelper.TB_DIEM + " VALUES (" + maHS + ", " +  maMH + ", " + diemMoi + ")" );
         tbL.removeViewsInLayout(1, 7);
         layMonHoc(database);
+        loadDiemTrungBinh();
     }
 
     private void updateDiem(DBHelper db, int maMH, float diemMoi)
@@ -296,6 +337,7 @@ public class StudentManagerActivity extends AppCompatActivity {
                 + " WHERE " + DBHelper.COL_DIEM_MAHOCSINH + " = " + maHS + " AND " + DBHelper.COL_DIEM_MAMONHOC + " = " + maMH);
         tbL.removeViewsInLayout(1, 7);
         layMonHoc(database);
+        loadDiemTrungBinh();
     }
 
 }
