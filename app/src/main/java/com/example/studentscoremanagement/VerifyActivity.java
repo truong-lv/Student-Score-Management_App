@@ -38,7 +38,7 @@ public class VerifyActivity extends AppCompatActivity {
 
                 //kiểm tra người dùng nhập mã xác nhận có đúng ko
                 if(!inputCode.equals(code)){
-                    Intent intent=new Intent(VerifyActivity.this,ChooseClassActivity.class);
+                    Intent intent=new Intent(VerifyActivity.this,MainActivity.class);//update fragment here
                     intent.putExtra(LoginActivity.USER_INFOR,bundle);
                     startActivity(intent);
                 }else {
