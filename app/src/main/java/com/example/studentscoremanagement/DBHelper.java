@@ -137,7 +137,7 @@ public class DBHelper extends SQLiteOpenHelper {
         database.execSQL("INSERT INTO "+TB_TAIKHOAN+" VALUES ('nghia','123456','0347360427',null)");
         database.execSQL("INSERT INTO "+TB_TAIKHOAN+" VALUES ('nam','123456','0334704530',null)");
         database.execSQL("INSERT INTO "+TB_TAIKHOAN+" VALUES ('vu','123456','0327551251',null)");
-        database.execSQL("INSERT INTO "+TB_TAIKHOAN+" VALUES ('sang','123456','0922060313',null)");
+        database.execSQL("INSERT INTO "+TB_TAIKHOAN+" VALUES ('sang','123456','0933545121',null)");
 
         database.execSQL("INSERT INTO "+TB_LOP+" VALUES ('12A1','Lù Vĩnh Trường')");
         database.execSQL("INSERT INTO "+TB_LOP+" VALUES ('12A2','Nguyễn Hải Nam')");
