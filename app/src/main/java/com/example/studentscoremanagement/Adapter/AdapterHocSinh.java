@@ -1,6 +1,8 @@
 package com.example.studentscoremanagement.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,15 +14,17 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.example.studentscoremanagement.DSSV;
 import com.example.studentscoremanagement.Model.HocSinh;
 import com.example.studentscoremanagement.R;
+import com.example.studentscoremanagement.StudentManagerActivity;
 
 import java.util.ArrayList;
 
 public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
 
      Context context;
-      int layout;
+     int layout;
      ArrayList<HocSinh> hocSinhList;
 
     public AdapterHocSinh(@NonNull Context context, int resource, @NonNull ArrayList<HocSinh> objects) {
@@ -54,7 +58,9 @@ public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context,hocSinh.getMaHS(),Toast.LENGTH_SHORT).show();
-
+                Intent i = new Intent(context, StudentManagerActivity.class);
+                i.putExtra("maHS", hocSinh.getMaHS());
+                ((DSSV)context).startActivity(i);
             }
         });
         Log.d("print",String.valueOf(getCount()));
