@@ -53,13 +53,16 @@
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_student_manager.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_user_infor.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_verify.xml" value="0.22826086956521738" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/dialog_nhap_diem.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/fragment_dashboard.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/fragment_home.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/fragment_notifications.xml" value="0.22826086956521738" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/fragment_user.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/pdf_viewer.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/report_item.xml" value="0.2" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/report_item_table.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/menu/home_bottom_menu.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.113" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.113" />
         <entry key="..\:/Study/LearnPTIT/Mobile/Middle Exam/Student-Score-Management_App/app/src/main/res/layout/activity_main.xml" value="0.19610507246376813" />

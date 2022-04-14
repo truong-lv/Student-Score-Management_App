@@ -1,14 +1,31 @@
 package com.example.studentscoremanagement.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.example.studentscoremanagement.ChooseClassActivity;
+import com.example.studentscoremanagement.DBHelper;
+import com.example.studentscoremanagement.DSSV;
+import com.example.studentscoremanagement.LoginActivity;
+import com.example.studentscoremanagement.Model.Lop;
+import com.example.studentscoremanagement.Model.TaiKhoan;
 import com.example.studentscoremanagement.R;
+import com.example.studentscoremanagement.UserInforActivity;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -21,10 +38,18 @@ public class HomeFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    ArrayList<String> dataString = new ArrayList<>();
 
+    UserFragment userFragment=null;
+    Button btnConfirm;
+    ImageButton ibtInfor;
+    Spinner spnClass;
+    DBHelper database;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    public static final String ID_CLASS="ID_CLASS";
 
     public HomeFragment() {
         // Required empty public constructor
@@ -61,6 +86,53 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        View view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        addControl(view);
+        setEvent();
+
+        return view;
+    }
+    private void setEvent() {
+        Initialize();
+
+        ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, dataString);
+        spnClass.setAdapter(adapter);
+
+        HomeFragment homeFragment=this;
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getActivity(), "Lớp: "+ spnClass.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+//                Intent intent = new Intent(getActivity(), UserFragment.class);
+//                intent.putExtra(ID_CLASS,spnClass.getSelectedItem().toString());
+//                //getActivity().finish();
+//                startActivity(intent);
+
+                if(userFragment==null) userFragment=new UserFragment();
+//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.homeFragment, userFragment);
+//                //fragmentTransaction.remove(homeFragment);
+//                fragmentTransaction.commit();
+                    FragmentManager manager=getFragmentManager();
+                    manager.beginTransaction()
+                            .replace(R.id.homeFragment, userFragment,userFragment.getTag())
+                            .commit();
+            }
+        });
+    }
+
+    private void Initialize() {
+        database=new DBHelper(getContext());
+        ArrayList<String> classes = Lop.getAllClassId(database);
+        for (int i = 0; i < classes.size(); i++) {
+            dataString.add(classes.get(i));
+        }
+    }
+
+    private void addControl(View view) {
+        btnConfirm = view.findViewById(R.id.btnConfirm);
+        spnClass = view.findViewById(R.id.spnClass);
     }
 }
