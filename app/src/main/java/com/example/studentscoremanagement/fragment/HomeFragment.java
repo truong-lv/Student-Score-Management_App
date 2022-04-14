@@ -40,7 +40,6 @@ public class HomeFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     ArrayList<String> dataString = new ArrayList<>();
 
-    UserFragment userFragment=null;
     Button btnConfirm;
     ImageButton ibtInfor;
     Spinner spnClass;
@@ -103,22 +102,19 @@ public class HomeFragment extends Fragment {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Lớp: "+ spnClass.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
-//                Intent intent = new Intent(getActivity(), UserFragment.class);
-//                intent.putExtra(ID_CLASS,spnClass.getSelectedItem().toString());
-//                //getActivity().finish();
-//                startActivity(intent);
+               // Toast.makeText(getActivity(), "Lớp: "+ spnClass.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
 
-                if(userFragment==null) userFragment=new UserFragment();
-//                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.replace(R.id.homeFragment, userFragment);
-//                //fragmentTransaction.remove(homeFragment);
-//                fragmentTransaction.commit();
-                    FragmentManager manager=getFragmentManager();
-                    manager.beginTransaction()
-                            .replace(R.id.homeFragment, userFragment,userFragment.getTag())
-                            .commit();
+                DSSVFragment dssvFragment=new DSSVFragment();
+                Bundle args = new Bundle();
+                args.putString(ID_CLASS,spnClass.getSelectedItem().toString());
+                dssvFragment.setArguments(args);
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment, dssvFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
             }
         });
     }

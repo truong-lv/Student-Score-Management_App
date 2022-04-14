@@ -46,6 +46,7 @@
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_bottom_navigation.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_choose_class.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_dssv.xml" value="0.25416666666666665" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_dssv_ds.xml" value="0.24010416666666667" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_login.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_pdf_viewer.xml" value="0.25416666666666665" />
@@ -55,6 +56,7 @@
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_verify.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/dialog_nhap_diem.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/fragment_dashboard.xml" value="0.22826086956521738" />
+        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/fragment_dssv.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/fragment_home.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/fragment_notifications.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/fragment_user.xml" value="0.25416666666666665" />
