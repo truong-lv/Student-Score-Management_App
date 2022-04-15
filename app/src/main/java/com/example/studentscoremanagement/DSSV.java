@@ -103,7 +103,7 @@ public class DSSV extends AppCompatActivity {
         }while (dataHS.moveToNext());
         Toast.makeText(this, String.valueOf(arrayHocSinh.get(0).getTen()) , Toast.LENGTH_SHORT).show();
         //adapter.notifyDataSetChanged();
-        adapter = new AdapterHocSinh(DSSV.this, R.layout.activity_dssv_ds, arrayHocSinh);
+        adapter = new AdapterHocSinh(DSSV.this, R.layout.activity_dssv_ds, arrayHocSinh, null);
         lvHocSinh.setAdapter(adapter);
 
     }

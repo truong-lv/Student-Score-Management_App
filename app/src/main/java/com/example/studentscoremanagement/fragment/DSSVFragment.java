@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -149,8 +150,12 @@ public class DSSVFragment extends Fragment {
         }while (dataHS.moveToNext());
         //Toast.makeText(this, String.valueOf(arrayHocSinh.get(0).getTen()) , Toast.LENGTH_SHORT).show();
         //adapter.notifyDataSetChanged();
-        adapter = new AdapterHocSinh(getContext(), R.layout.activity_dssv_ds, arrayHocSinh);
+        Toast.makeText(getContext(), "Context: "+getActivity(), Toast.LENGTH_SHORT).show();
+        Log.d("print activity", getActivity().toString());
+        Log.d("print context", getContext().toString());
+        adapter = new AdapterHocSinh(getContext(), R.layout.activity_dssv_ds, arrayHocSinh, getActivity());
         lvHocSinh.setAdapter(adapter);
+
 
     }
 
