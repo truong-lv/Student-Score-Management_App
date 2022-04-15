@@ -164,7 +164,7 @@ public class DSSVFragment extends Fragment {
 
 
     private  void ThemSinhVien(){
-        Dialog dialog = new Dialog(this);
+        Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.themhocsinh);
 
@@ -185,11 +185,11 @@ public class DSSVFragment extends Fragment {
                 String phai = editPhai.getText().toString();
                 String ngaysinh= editNSinh.getText().toString();
                 if(mhs.equals("") || ho.equals("") || ten.equals("") || phai.equals("") ||ngaysinh.equals("")){
-                    Toast.makeText(DSSV.this, "Vui lòng nhập không để trống!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Vui lòng nhập không để trống!", Toast.LENGTH_SHORT).show();
                 }else {
                     database.QueryData("INSERT INTO " + DBHelper.TB_HOCSINH+" VALUES ( "+DBHelper.COL_HOCSINH_MAHOCSINH+" = '"+mhs +"', " +
                             " "+DBHelper.COL_HOCSINH_HO+" ='"+ho+"', "+DBHelper.COL_HOCSINH_TEN+" ='"+ten+"', "+DBHelper.COL_HOCSINH_PHAI+" ='"+phai+"', "+DBHelper.COL_HOCSINH_NGAYSINH+" ='"+ngaysinh+"')");
-                    Toast.makeText(DSSV.this, "Đã Thêm", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Đã Thêm", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                     GetDataHocSinh();
                 }
@@ -207,7 +207,7 @@ public class DSSVFragment extends Fragment {
 
 
     public void DialogSua(String MaHS, String Ho, String Ten, String Phai, String NgaySinh){
-        Dialog dialog = new Dialog(this);
+        Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.themhocsinh);
 
@@ -226,7 +226,6 @@ public class DSSVFragment extends Fragment {
         editNSinh.setText(NgaySinh);
 
         btnThem.setOnClickListener(new View.OnClickListener() {
-            private SQLiteOpenHelper database;
 
             @Override
             public void onClick(View view) {
@@ -235,9 +234,9 @@ public class DSSVFragment extends Fragment {
                 String hoMoi = editHo.getText().toString().trim();
                 String phaiMoi = editPhai.getText().toString().trim();
                 String nSinhMoi = editNSinh.getText().toString().trim();
-                DSSV.this.database.QueryData("UPDATE FROM "+DBHelper.TB_HOCSINH +" SET  "+DBHelper.COL_HOCSINH_TEN+" = '"+ hoMoi+"', "+DBHelper.COL_HOCSINH_TEN+" = '"+ tenMoi+"'," +
+                database.QueryData("UPDATE FROM "+DBHelper.TB_HOCSINH +" SET  "+DBHelper.COL_HOCSINH_TEN+" = '"+ hoMoi+"', "+DBHelper.COL_HOCSINH_TEN+" = '"+ tenMoi+"'," +
                         " "+DBHelper.COL_HOCSINH_PHAI+" = '"+ phaiMoi+"' , "+DBHelper.COL_HOCSINH_NGAYSINH+" = '"+ nSinhMoi+"'  WHERE "+DBHelper.COL_HOCSINH_MAHOCSINH+" = '"+ MaHSMoi +"' ");
-                Toast.makeText(DSSV.this, "ĐÃ CẬP NHẬT", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "ĐÃ CẬP NHẬT", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 GetDataHocSinh();
             }
@@ -253,13 +252,13 @@ public class DSSVFragment extends Fragment {
 
 
     public void DialogXoa( String ten, String MaHS){
-        AlertDialog.Builder dialogXoa = new AlertDialog.Builder(this);
+        AlertDialog.Builder dialogXoa = new AlertDialog.Builder(getContext());
         dialogXoa.setMessage("Bạn có muốn xóa học sinh " + ten + " không?");
         dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 database.QueryData("DELETE FROM "+DBHelper.TB_HOCSINH +" WHERE "+ DBHelper.COL_HOCSINH_MAHOCSINH+" = '" + MaHS + "'");
-                Toast.makeText(DSSV.this, "Đã xóa " + ten, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Đã xóa " + ten, Toast.LENGTH_SHORT).show();
                 GetDataHocSinh();
             }
         });
