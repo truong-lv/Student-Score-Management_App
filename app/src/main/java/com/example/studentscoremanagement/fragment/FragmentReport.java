@@ -63,7 +63,6 @@ public class FragmentReport extends Fragment {
     ReportItemAdapter reportItemAdapter;
     DBHelper dbHelper;
 
-    String idClass;
     // declaring width and height
     // for our PDF file.
     int pageHeight = 1120;
@@ -79,12 +78,12 @@ public class FragmentReport extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_CLASS_ID = "CLASS_ID";
+    private static final String ARG_TEACHER_NAME = "TEACHER_NAME";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String CLASS_ID;
+    private String TEACHER_NAME;
 
     public FragmentReport() {
         // Required empty public constructor
@@ -102,8 +101,8 @@ public class FragmentReport extends Fragment {
     public static FragmentReport newInstance(String param1, String param2) {
         FragmentReport fragment = new FragmentReport();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_CLASS_ID, param1);
+        args.putString(ARG_TEACHER_NAME, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -112,8 +111,8 @@ public class FragmentReport extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            CLASS_ID = getArguments().getString(ARG_CLASS_ID);
+            TEACHER_NAME = getArguments().getString(ARG_TEACHER_NAME);
         }
     }
 
@@ -127,10 +126,11 @@ public class FragmentReport extends Fragment {
         return view;
     }
     private void setEvent() {
-        getIdClass();
+        tvClassId.setText(CLASS_ID);
+        tvTeacherName.setText(TEACHER_NAME);
         dbHelper = new DBHelper(getContext());
         ArrayList<HocSinh> hocSinhs = new ArrayList<>();
-        Cursor cursor = dbHelper.GetData("SELECT * FROM " + DBHelper.TB_HOCSINH + " WHERE " + DBHelper.COL_HOCSINH_MALOP + "='"+idClass+"'");
+        Cursor cursor = dbHelper.GetData("SELECT * FROM " + DBHelper.TB_HOCSINH + " WHERE " + DBHelper.COL_HOCSINH_MALOP + "='"+CLASS_ID+"'");
         cursor.moveToFirst();
         do {
             HocSinh hocSinh = new HocSinh();
@@ -152,15 +152,6 @@ public class FragmentReport extends Fragment {
 
         setEventExport();
     }
-
-    private void getIdClass() {
-        idClass=getArguments().getString(DSSVFragment.CLASS_ID);
-        String teacherName=getArguments().getString(DSSVFragment.TEACHER_NAME);
-
-        tvClassId.setText(idClass);
-        tvTeacherName.setText(teacherName);
-    }
-
     private void setControl(View view) {
         lvReport = view.findViewById(R.id.lvReport);
         tvClassId = view.findViewById(R.id.tvClassId);
@@ -261,7 +252,7 @@ public class FragmentReport extends Fragment {
 
         title.setFakeBoldText(true);
         title.setColor(ContextCompat.getColor(getContext(), R.color.purple_200));
-        canvas.drawText(idClass, 235, 160, title);
+        canvas.drawText(CLASS_ID, 235, 160, title);
         canvas.drawText(tvTeacherName.getText().toString(), 625, 160, title);
 
 
@@ -408,7 +399,7 @@ public class FragmentReport extends Fragment {
                     Toast.makeText(getContext(), "Permission Granted..", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(getContext(), "Permission Denined.", Toast.LENGTH_SHORT).show();
-                    //finish();
+                    getActivity().finish();
                 }
             }
         }
