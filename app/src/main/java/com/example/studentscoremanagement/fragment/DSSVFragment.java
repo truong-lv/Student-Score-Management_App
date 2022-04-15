@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -120,10 +122,18 @@ public class DSSVFragment extends Fragment {
         buttonBC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Intent intent=new Intent(DSSV.this, ReportActivity.class);
-//                intent.putExtra(CLASS_ID,idClass);
-//                intent.putExtra(TEACHER_NAME,textGV.getText());
-//                startActivity(intent);
+                FragmentReport fragmentReport=new FragmentReport();
+                Bundle args = new Bundle();
+                args.putString(CLASS_ID,idClass);
+                args.putString(TEACHER_NAME,textGV.getText().toString());
+                fragmentReport.setArguments(args);
+
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment, fragmentReport);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
             }
         });
     }
