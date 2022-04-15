@@ -57,15 +57,8 @@ public class LoginActivity extends AppCompatActivity {
 //                    askPermissionAndSendSMS();
 
                     Intent intent = new Intent(LoginActivity.this, VerifyActivity.class);
-                    Bundle bundle=new Bundle();
-                    bundle.putString(DBHelper.COL_TAIKHOAN_TEN,tk.getTenTaiKhoan());
-                    bundle.putString(DBHelper.COL_TAIKHOAN_MATKHAU,tk.getMatKhau());
-                    bundle.putString(DBHelper.COL_TAIKHOAN_SDT,tk.getSdt());
-//                    Log.d("print", "login activity " + tk.getAnh());
-//                    bundle.putByteArray(DBHelper.COL_TAIKHOAN_ANH, null);
-//                    intent.putExtra(DBHelper.COL_TAIKHOAN_ANH, tk.getAnh());
-                    intent.putExtra(USER_INFOR,bundle);
-
+                    intent.putExtra(DBHelper.COL_TAIKHOAN_TEN,tk.getTenTaiKhoan());
+                    intent.putExtra(DBHelper.COL_TAIKHOAN_SDT,tk.getSdt());
                     intent.putExtra(VERIFY_CODE,codeVerify);
                     startActivity(intent);
                 }else{

@@ -27,9 +27,9 @@ public class VerifyActivity extends AppCompatActivity {
 
     private void setEvent() {
         Intent getDaTa=getIntent();
+        String username=getDaTa.getExtras().getString(DBHelper.COL_TAIKHOAN_TEN);
+        String sdt=getDaTa.getExtras().getString(DBHelper.COL_TAIKHOAN_SDT);
         String code=getDaTa.getExtras().getString(LoginActivity.VERIFY_CODE);
-        Bundle bundle=getDaTa.getBundleExtra(LoginActivity.USER_INFOR);
-        String sdt=bundle.getString(DBHelper.COL_TAIKHOAN_SDT);
         tvMess.setText("Nhập mã xác minh đã được gửi tới SĐT của bạn "+sdt.substring(0,2)+"******"+sdt.substring(sdt.length()-2));
         btnComfirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,8 +38,10 @@ public class VerifyActivity extends AppCompatActivity {
 
                 //kiểm tra người dùng nhập mã xác nhận có đúng ko
                 if(!inputCode.equals(code)){
+                    finish();
                     Intent intent=new Intent(VerifyActivity.this,MainActivity.class);//update fragment here
-                    intent.putExtra(LoginActivity.USER_INFOR,bundle);
+
+                    intent.putExtra(DBHelper.COL_TAIKHOAN_TEN,username);
                     startActivity(intent);
                 }else {
                     Toast.makeText(VerifyActivity.this, "Mã xác thực không hợp lệ", Toast.LENGTH_SHORT).show();
