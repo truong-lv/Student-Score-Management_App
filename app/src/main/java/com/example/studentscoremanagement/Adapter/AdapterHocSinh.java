@@ -1,5 +1,6 @@
 package com.example.studentscoremanagement.Adapter;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,11 +15,17 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.studentscoremanagement.DSSV;
 import com.example.studentscoremanagement.Model.HocSinh;
 import com.example.studentscoremanagement.R;
 import com.example.studentscoremanagement.StudentManagerActivity;
+import com.example.studentscoremanagement.fragment.DSSVFragment;
+import com.example.studentscoremanagement.fragment.StudentManagerFragment;
 
 import java.util.ArrayList;
 
@@ -27,12 +34,14 @@ public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
      DSSV context;
      int layout;
      ArrayList<HocSinh> hocSinhList;
+     FragmentActivity dssvFragment;
 
-    public AdapterHocSinh(@NonNull Context context, int resource, @NonNull ArrayList<HocSinh> objects) {
+    public AdapterHocSinh(@NonNull Context context, int resource, @NonNull ArrayList<HocSinh> objects, FragmentActivity dssv) {
         super(context, resource, objects);
         this.context = (DSSV) context;
         this.layout = resource;
         this.hocSinhList = objects;
+        this.dssvFragment = dssv;
     }
 
 
@@ -61,10 +70,20 @@ public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context,hocSinh.getMaHS(),Toast.LENGTH_SHORT).show();
-                Intent i = new Intent(context, StudentManagerActivity.class);
-                i.putExtra("maHS", hocSinh.getMaHS());
-                ((DSSV)context).startActivity(i);
+//                Intent i = new Intent(context, StudentManagerActivity.class);
+//                i.putExtra("maHS", hocSinh.getMaHS());
+//                context.startActivity(i);
+
+                StudentManagerFragment studentManagerFragment = StudentManagerFragment.newInstance(Integer.parseInt(hocSinh.getMaHS()));
+
+                Toast.makeText(context, ""+dssvFragment, Toast.LENGTH_SHORT).show();
+
+                FragmentManager fragmentManager = dssvFragment.getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment, studentManagerFragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+
             }
         });
         Log.d("print",String.valueOf(getCount()));

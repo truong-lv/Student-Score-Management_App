@@ -1,32 +1,47 @@
-package com.example.studentscoremanagement;
+package com.example.studentscoremanagement.fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.text.TextUtils;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import com.example.studentscoremanagement.DBHelper;
+import com.example.studentscoremanagement.R;
+import com.example.studentscoremanagement.StudentManagerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StudentManagerActivity extends AppCompatActivity {
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link StudentManagerFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class StudentManagerFragment extends Fragment {
 
-    int maHS;
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "maHS";
+
+    // TODO: Rename and change types of parameters
+    private int maHS;
+
     int tongMH = 0;
     int tongHeSo = 0;
     float tongDiem = 0;
@@ -38,36 +53,64 @@ public class StudentManagerActivity extends AppCompatActivity {
     TextView tvMaHS, tvHoTen, tvNgaySinh, tvLop, tvPhai, tvTongMH, tvDiemTB;
     List<String> dsHS = new ArrayList<>();
 
+    public StudentManagerFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @return A new instance of fragment StudentManagerFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static StudentManagerFragment newInstance(int param1) {
+        StudentManagerFragment fragment = new StudentManagerFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_PARAM1, param1);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_manager);
+        if (getArguments() != null) {
+            maHS = getArguments().getInt(ARG_PARAM1);
+        }
+    }
 
-        addControl();
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_student_manager, container, false);
+
+        addControl(view);
         setEvent();
+
+        return view;
     }
 
-    private void addControl() {
-        tvMaHS = findViewById(R.id.tvMaHS);
-        tvHoTen = findViewById(R.id.tvHoTen);
-        tvLop = findViewById(R.id.tvLop);
-        tvNgaySinh = findViewById(R.id.tvNgaySinh);
-        tvPhai = findViewById(R.id.tvPhai);
-        btnTruoc = findViewById(R.id.btnTruoc);
-        btnSau = findViewById(R.id.btnSau);
-        tbL = (TableLayout) findViewById(R.id.tbDiem);
-        tvTongMH = findViewById(R.id.tvTongMH);
-        tvDiemTB = findViewById(R.id.tvDiemTB);
+    private void addControl(View view) {
+        tvMaHS = view.findViewById(R.id.tvMaHS);
+        tvHoTen = view.findViewById(R.id.tvHoTen);
+        tvLop = view.findViewById(R.id.tvLop);
+        tvNgaySinh = view.findViewById(R.id.tvNgaySinh);
+        tvPhai = view.findViewById(R.id.tvPhai);
+        btnTruoc = view.findViewById(R.id.btnTruoc);
+        btnSau = view.findViewById(R.id.btnSau);
+        tbL = (TableLayout) view.findViewById(R.id.tbDiem);
+        tvTongMH = view.findViewById(R.id.tvTongMH);
+        tvDiemTB = view.findViewById(R.id.tvDiemTB);
     }
-
 
     private void setEvent() {
-        database = new DBHelper(this);
+        database = new DBHelper(getContext());
 
-        Intent i = getIntent();
-        String value = i.getStringExtra("maHS");
-        maHS = Integer.parseInt(value);
+//        Intent i = getIntent();
+//        String value = i.getStringExtra("maHS");
+//        maHS = Integer.parseInt(value);
 
         layThongTin(database);
         layMonHoc(database);
@@ -163,16 +206,16 @@ public class StudentManagerActivity extends AppCompatActivity {
         String heSo;
 
         Cursor data = db.GetData("SELECT " + DBHelper.COL_MONHOC_MAMONHOC + ", " + DBHelper.COL_MONHOC_TENMONHOC
-               + ", " + DBHelper.COL_MONHOC_HESO + " FROM " + DBHelper.TB_MONHOC);
+                + ", " + DBHelper.COL_MONHOC_HESO + " FROM " + DBHelper.TB_MONHOC);
         while(data.moveToNext())
         {
             tongSoMH += 1 ;
             maMH = data.getString(0);
             tenMH = data.getString(1);
             heSo = data.getString(2);
-            TableRow tbRow = new TableRow(this);
+            TableRow tbRow = new TableRow(getContext());
 
-            TextView tv = new TextView(this);
+            TextView tv = new TextView(getContext());
             tv.setText(maMH);
             tv.setTextColor(Color.WHITE);
             tv.setGravity(Gravity.CENTER);
@@ -181,7 +224,7 @@ public class StudentManagerActivity extends AppCompatActivity {
             tv.setPadding(0,20,0,20);
             tbRow.addView(tv);
 
-            TextView tv2 = new TextView(this);
+            TextView tv2 = new TextView(getContext());
             tv2.setText(tenMH);
             tv2.setTextColor(Color.WHITE);
             tv2.setGravity(Gravity.CENTER);
@@ -205,9 +248,7 @@ public class StudentManagerActivity extends AppCompatActivity {
                 diem = ".";
             }
 
-//            Toast.makeText(this, tongDiem + ", " + tongHeSo, Toast.LENGTH_SHORT).show();
-
-            TextView tv3 = new TextView(this);
+            TextView tv3 = new TextView(getContext());
             tv3.setText("" + diem);
             tv3.setTextColor(Color.WHITE);
             tv3.setGravity(Gravity.CENTER);
@@ -242,7 +283,7 @@ public class StudentManagerActivity extends AppCompatActivity {
 
 
     private void dialogNhapDiem(String diem, int maMH){
-        Dialog dialog = new Dialog(this);
+        Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_nhap_diem);
 
@@ -261,32 +302,32 @@ public class StudentManagerActivity extends AppCompatActivity {
                 String diemMoi = edtNhapDiem.getText().toString().trim();
                 if(TextUtils.isEmpty(diemMoi))
                 {
-                    Toast.makeText(StudentManagerActivity.this, "Vui lòng nhập điểm cho môn học", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Vui lòng nhập điểm cho môn học", Toast.LENGTH_SHORT).show();
                 }
                 else
                 {
                     Float diemMoiFloat = isFloat(diemMoi);
                     if(diemMoiFloat == -1)
                     {
-                        Toast.makeText(StudentManagerActivity.this, "Điểm nhập phải thuộc khoảng từ 0 đến 10", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Điểm nhập phải thuộc khoảng từ 0 đến 10", Toast.LENGTH_SHORT).show();
                     }
                     else if (diemMoiFloat == -2)
                     {
-                        Toast.makeText(StudentManagerActivity.this, "Vui lòng nhập đúng định dạng điểm", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Vui lòng nhập đúng định dạng điểm", Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
                         //Nếu chưa có điểm thì insert điểm mới vào
                         if(diem == "."){
                             insertDiem(database, maMH , diemMoiFloat);
-                            Toast.makeText(StudentManagerActivity.this, "Nhập điểm thành công", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Nhập điểm thành công", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         }
                         // Nếu có điểm rồi thì update điểm
                         else
                         {
                             updateDiem(database, maMH, diemMoiFloat);
-                            Toast.makeText(StudentManagerActivity.this, "Sửa điểm thành công", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Sửa điểm thành công", Toast.LENGTH_SHORT).show();
                             dialog.dismiss();
                         }
                     }
@@ -340,5 +381,4 @@ public class StudentManagerActivity extends AppCompatActivity {
         layMonHoc(database);
         loadDiemTrungBinh();
     }
-
 }
