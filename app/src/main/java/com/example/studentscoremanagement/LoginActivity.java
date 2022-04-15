@@ -54,7 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                     codeVerify="Mã xác thực: "+randomVerifyCode();
 
                     //Gửi tin nhắn
-//                    askPermissionAndSendSMS();
+                    askPermissionAndSendSMS();
 
                     Intent intent = new Intent(LoginActivity.this, VerifyActivity.class);
                     intent.putExtra(DBHelper.COL_TAIKHOAN_TEN,tk.getTenTaiKhoan());
