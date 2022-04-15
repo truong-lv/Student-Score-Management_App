@@ -66,7 +66,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String scripTBHocSinh="CREATE TABLE "+ TB_HOCSINH+"("+
                 COL_HOCSINH_MAHOCSINH+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,"+
                 COL_HOCSINH_HO+" TEXT NOT NULL,"+
-                COL_TAIKHOAN_TEN+" TEXT NOT NULL,"+
+                COL_HOCSINH_TEN+" TEXT NOT NULL,"+
                 COL_HOCSINH_PHAI+" TEXT NOT NULL,"+
                 COL_HOCSINH_NGAYSINH+" TEXT,"+
                 COL_HOCSINH_MALOP+" TEXT,"+

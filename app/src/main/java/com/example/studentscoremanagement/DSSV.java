@@ -109,8 +109,8 @@ public class DSSV extends AppCompatActivity {
         }while (dataHS.moveToNext());
         Toast.makeText(this, String.valueOf(arrayHocSinh.get(0).getTen()) , Toast.LENGTH_SHORT).show();
         //adapter.notifyDataSetChanged();
-        adapter = new AdapterHocSinh(DSSV.this, R.layout.activity_dssv_ds, arrayHocSinh, null);
-        lvHocSinh.setAdapter(adapter);
+//        adapter = new AdapterHocSinh(DSSV.this, R.layout.activity_dssv_ds, arrayHocSinh, null);
+//        lvHocSinh.setAdapter(adapter);
 
     }
 
@@ -129,7 +129,7 @@ public class DSSV extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.themhocsinh);
 
-        EditText editMHS = (EditText) dialog.findViewById(R.id.editTextNhapMHS);
+
         EditText editHo = (EditText) dialog.findViewById(R.id.editTextNhapHo);
         EditText editTen = (EditText) dialog.findViewById(R.id.editTextNhapTen);
         EditText editPhai = (EditText) dialog.findViewById(R.id.editTextNhapPhai);
@@ -140,16 +140,16 @@ public class DSSV extends AppCompatActivity {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String mhs = editMHS.getText().toString();
+
                 String ho = editHo.getText().toString();
                 String ten = editTen.getText().toString();
                 String phai = editPhai.getText().toString();
                 String ngaysinh= editNSinh.getText().toString();
-                if(mhs.equals("") || ho.equals("") || ten.equals("") || phai.equals("") ||ngaysinh.equals("")){
+                if( ho.equals("") || ten.equals("") || phai.equals("") ||ngaysinh.equals("")){
                     Toast.makeText(DSSV.this, "Vui lòng nhập không để trống!", Toast.LENGTH_SHORT).show();
                 }else {
-                    database.QueryData("INSERT INTO " + DBHelper.TB_HOCSINH+" VALUES ( "+DBHelper.COL_HOCSINH_MAHOCSINH+" = '"+mhs +"', " +
-                            " "+DBHelper.COL_HOCSINH_HO+" ='"+ho+"', "+DBHelper.COL_HOCSINH_TEN+" ='"+ten+"', "+DBHelper.COL_HOCSINH_PHAI+" ='"+phai+"', "+DBHelper.COL_HOCSINH_NGAYSINH+" ='"+ngaysinh+"')");
+                   // database.QueryData("INSERT INTO " + DBHelper.TB_HOCSINH+" VALUES ( "+DBHelper.COL_HOCSINH_MAHOCSINH+" = '"+mhs +"', " +
+                       //     " "+DBHelper.COL_HOCSINH_HO+" ='"+ho+"', "+DBHelper.COL_HOCSINH_TEN+" ='"+ten+"', "+DBHelper.COL_HOCSINH_PHAI+" ='"+phai+"', "+DBHelper.COL_HOCSINH_NGAYSINH+" ='"+ngaysinh+"')");
                     Toast.makeText(DSSV.this, "Đã Thêm", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                     GetDataHocSinh();
@@ -172,7 +172,7 @@ public class DSSV extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.themhocsinh);
 
-        EditText editMHS = (EditText) dialog.findViewById(R.id.editTextNhapMHS);
+
         EditText editHo = (EditText) dialog.findViewById(R.id.editTextNhapHo);
         EditText editTen = (EditText) dialog.findViewById(R.id.editTextNhapTen);
         EditText editPhai = (EditText) dialog.findViewById(R.id.editTextNhapPhai);
@@ -180,7 +180,7 @@ public class DSSV extends AppCompatActivity {
         Button btnHuy = (Button) dialog.findViewById(R.id.buttonHUY);
         Button btnThem = (Button) dialog.findViewById(R.id.buttonLUU);
 
-        editMHS.setText(MaHS);
+
         editHo.setText(Ho);
         editTen.setText(Ten);
         editPhai.setText(Phai);
@@ -191,13 +191,12 @@ public class DSSV extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                String MaHSMoi = editMHS.getText().toString().trim();
                 String tenMoi = editTen.getText().toString().trim();
                 String hoMoi = editHo.getText().toString().trim();
                 String phaiMoi = editPhai.getText().toString().trim();
                 String nSinhMoi = editNSinh.getText().toString().trim();
-                DSSV.this.database.QueryData("UPDATE FROM "+DBHelper.TB_HOCSINH +" SET  "+DBHelper.COL_HOCSINH_TEN+" = '"+ hoMoi+"', "+DBHelper.COL_HOCSINH_TEN+" = '"+ tenMoi+"'," +
-                        " "+DBHelper.COL_HOCSINH_PHAI+" = '"+ phaiMoi+"' , "+DBHelper.COL_HOCSINH_NGAYSINH+" = '"+ nSinhMoi+"'  WHERE "+DBHelper.COL_HOCSINH_MAHOCSINH+" = '"+ MaHSMoi +"' ");
+                //DSSV.this.database.QueryData("UPDATE FROM "+DBHelper.TB_HOCSINH +" SET  "+DBHelper.COL_HOCSINH_TEN+" = '"+ hoMoi+"', "+DBHelper.COL_HOCSINH_TEN+" = '"+ tenMoi+"'," +
+                  //      " "+DBHelper.COL_HOCSINH_PHAI+" = '"+ phaiMoi+"' , "+DBHelper.COL_HOCSINH_NGAYSINH+" = '"+ nSinhMoi+"'  WHERE "+DBHelper.COL_HOCSINH_MAHOCSINH+" = '"+ MaHSMoi +"' ");
                 Toast.makeText(DSSV.this, "ĐÃ CẬP NHẬT", Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
                 GetDataHocSinh();

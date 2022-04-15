@@ -49,7 +49,7 @@ public class ChooseClassActivity extends AppCompatActivity {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(ChooseClassActivity.this, "Lớp: "+ spnClass.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(ChooseClassActivity.this, "Lớp: "+ spnClass.getSelectedItem().toString(), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ChooseClassActivity.this, DSSV.class);
                 intent.putExtra(ID_CLASS,spnClass.getSelectedItem().toString());
                 startActivity(intent);

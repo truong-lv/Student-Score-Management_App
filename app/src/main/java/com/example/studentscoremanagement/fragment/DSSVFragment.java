@@ -26,7 +26,7 @@ import android.widget.Toast;
 
 import com.example.studentscoremanagement.Adapter.AdapterHocSinh;
 import com.example.studentscoremanagement.DBHelper;
-import com.example.studentscoremanagement.DSSV;
+//import com.example.studentscoremanagement.DSSV;
 import com.example.studentscoremanagement.Model.HocSinh;
 import com.example.studentscoremanagement.R;
 
@@ -45,14 +45,14 @@ public class DSSVFragment extends Fragment {
 
     // TODO: Rename and change types of parameters
     private String CLASS_ID;
-
+    private String teacherName;
     DBHelper database;
 
-    Button btnThem,buttonBC;
+    Button btnThem,buttonBC, btnTruoc, btnSau;
     ListView lvHocSinh;
     ArrayList<HocSinh> arrayHocSinh;
     AdapterHocSinh adapter;
-    TextView textGV;
+    TextView textClassId, textGV;
 
     public DSSVFragment() {
         // Required empty public constructor
@@ -88,7 +88,8 @@ public class DSSVFragment extends Fragment {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_dssv, container, false);
 
-        //lvHocSinh.setAdapter(adapter);
+
+
         setControl(view);
         setEvent();
         GetDataHocSinh();
@@ -96,12 +97,18 @@ public class DSSVFragment extends Fragment {
     }
 
     private void setControl(View view) {
+
         database=new DBHelper(getContext());
         lvHocSinh = view.findViewById(R.id.listViewMSHS);
-        btnThem=view.findViewById(R.id.buttonThem);
+        btnTruoc = view.findViewById(R.id.buttonTruoc);
+        btnSau = view.findViewById(R.id.buttonSau);
+        btnThem= view.findViewById(R.id.buttonThem);
         buttonBC=view.findViewById(R.id.buttonBC);
         arrayHocSinh = new ArrayList<>();
+        textClassId=view.findViewById(R.id.textLop);
         textGV=view.findViewById(R.id.textGV);
+        adapter = new AdapterHocSinh(getContext(), R.layout.activity_dssv_ds, arrayHocSinh, getActivity(),this);
+        lvHocSinh.setAdapter(adapter);
     }
 
     private void setEvent() {
@@ -126,34 +133,52 @@ public class DSSVFragment extends Fragment {
 
             }
         });
+
+        btnTruoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String newClassID = CLASS_ID.substring(3,CLASS_ID.length()-1);
+                CLASS_ID = CLASS_ID.substring(0, 2) + (Integer.parseInt(newClassID) - 1);
+                Toast.makeText(getContext(), CLASS_ID, Toast.LENGTH_SHORT).show();
+                GetDataHocSinh();
+            }
+        });
+
+        btnSau.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String newClassID = CLASS_ID.substring(3,CLASS_ID.length()-1);
+                CLASS_ID = CLASS_ID.substring(0, 2) + (Integer.parseInt(newClassID) + 1);
+                GetDataHocSinh();
+            }
+        });
     }
 
     // để data ra mh
     private void GetDataHocSinh(){
+        Cursor getTeacherName = database.GetData("SELECT "+DBHelper.COL_LOP_CHUNHIEM+" FROM "+DBHelper.TB_LOP+" WHERE "+DBHelper.COL_LOP_MALOP+"='"+CLASS_ID+"'");//
+        getTeacherName.moveToFirst();
+        do
+        {
+            teacherName = getTeacherName.getString(0);
+        }while (getTeacherName.moveToNext());
         Cursor dataHS = database.GetData("SELECT * FROM "+DBHelper.TB_HOCSINH+" WHERE "+DBHelper.COL_HOCSINH_MALOP+"='"+CLASS_ID+"'");//nghe ko bn ko nghe==>ông out meet r
-//ng
+
+        arrayHocSinh.clear();
         dataHS.moveToFirst();
         do
         {
             String id = dataHS.getString(0);
-            //Toast.makeText(this, id , Toast.LENGTH_SHORT).show();
             String ho = dataHS.getString(1);
-            //Toast.makeText(this, ho , Toast.LENGTH_SHORT).show();
             String ten = dataHS.getString(2);
-            //Toast.makeText(this, ten , Toast.LENGTH_SHORT).show();
             String phai = dataHS.getString(3);
-            //Toast.makeText(this, phai , Toast.LENGTH_SHORT).show();
             String ngaySinh = dataHS.getString(4);
-            //Toast.makeText(this, ngaySinh , Toast.LENGTH_SHORT).show();
             arrayHocSinh.add(new HocSinh(id, ho, ten, phai, ngaySinh));
         }while (dataHS.moveToNext());
-        //Toast.makeText(this, String.valueOf(arrayHocSinh.get(0).getTen()) , Toast.LENGTH_SHORT).show();
-        //adapter.notifyDataSetChanged();
-        Toast.makeText(getContext(), "Context: "+getActivity(), Toast.LENGTH_SHORT).show();
-        Log.d("print activity", getActivity().toString());
-        Log.d("print context", getContext().toString());
-        adapter = new AdapterHocSinh(getContext(), R.layout.activity_dssv_ds, arrayHocSinh, getActivity());
-        lvHocSinh.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+        textClassId.setText(CLASS_ID);
+        textGV.setText(teacherName);
 
 
     }
@@ -173,7 +198,6 @@ public class DSSVFragment extends Fragment {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.themhocsinh);
 
-        EditText editMHS = (EditText) dialog.findViewById(R.id.editTextNhapMHS);
         EditText editHo = (EditText) dialog.findViewById(R.id.editTextNhapHo);
         EditText editTen = (EditText) dialog.findViewById(R.id.editTextNhapTen);
         EditText editPhai = (EditText) dialog.findViewById(R.id.editTextNhapPhai);
@@ -184,19 +208,23 @@ public class DSSVFragment extends Fragment {
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String mhs = editMHS.getText().toString();
                 String ho = editHo.getText().toString();
                 String ten = editTen.getText().toString();
                 String phai = editPhai.getText().toString();
                 String ngaysinh= editNSinh.getText().toString();
-                if(mhs.equals("") || ho.equals("") || ten.equals("") || phai.equals("") ||ngaysinh.equals("")){
+                if( ho.equals("") || ten.equals("") || phai.equals("") ||ngaysinh.equals("")){
                     Toast.makeText(getContext(), "Vui lòng nhập không để trống!", Toast.LENGTH_SHORT).show();
                 }else {
-                    database.QueryData("INSERT INTO " + DBHelper.TB_HOCSINH+" VALUES ( "+DBHelper.COL_HOCSINH_MAHOCSINH+" = '"+mhs +"', " +
-                            " "+DBHelper.COL_HOCSINH_HO+" ='"+ho+"', "+DBHelper.COL_HOCSINH_TEN+" ='"+ten+"', "+DBHelper.COL_HOCSINH_PHAI+" ='"+phai+"', "+DBHelper.COL_HOCSINH_NGAYSINH+" ='"+ngaysinh+"')");
-                    Toast.makeText(getContext(), "Đã Thêm", Toast.LENGTH_SHORT).show();
-                    dialog.dismiss();
-                    GetDataHocSinh();
+                    try {
+                        database.QueryData("INSERT INTO " + DBHelper.TB_HOCSINH+" VALUES ( "+null+", '" +
+                                ho+"', '"+ten+"', '"+phai+"', '"+ngaysinh+"', '"+CLASS_ID+"')");
+                        Toast.makeText(getContext(), "Đã Thêm", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
+                        GetDataHocSinh();
+                    }catch (Exception e){
+                       Log.d("print",e.getMessage());
+                    }
+
                 }
             }
         });
@@ -216,7 +244,6 @@ public class DSSVFragment extends Fragment {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.themhocsinh);
 
-        EditText editMHS = (EditText) dialog.findViewById(R.id.editTextNhapMHS);
         EditText editHo = (EditText) dialog.findViewById(R.id.editTextNhapHo);
         EditText editTen = (EditText) dialog.findViewById(R.id.editTextNhapTen);
         EditText editPhai = (EditText) dialog.findViewById(R.id.editTextNhapPhai);
@@ -224,7 +251,7 @@ public class DSSVFragment extends Fragment {
         Button btnHuy = (Button) dialog.findViewById(R.id.buttonHUY);
         Button btnThem = (Button) dialog.findViewById(R.id.buttonLUU);
 
-        editMHS.setText(MaHS);
+
         editHo.setText(Ho);
         editTen.setText(Ten);
         editPhai.setText(Phai);
@@ -234,16 +261,21 @@ public class DSSVFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                String MaHSMoi = editMHS.getText().toString().trim();
+
                 String tenMoi = editTen.getText().toString().trim();
                 String hoMoi = editHo.getText().toString().trim();
                 String phaiMoi = editPhai.getText().toString().trim();
                 String nSinhMoi = editNSinh.getText().toString().trim();
-                database.QueryData("UPDATE FROM "+DBHelper.TB_HOCSINH +" SET  "+DBHelper.COL_HOCSINH_TEN+" = '"+ hoMoi+"', "+DBHelper.COL_HOCSINH_TEN+" = '"+ tenMoi+"'," +
-                        " "+DBHelper.COL_HOCSINH_PHAI+" = '"+ phaiMoi+"' , "+DBHelper.COL_HOCSINH_NGAYSINH+" = '"+ nSinhMoi+"'  WHERE "+DBHelper.COL_HOCSINH_MAHOCSINH+" = '"+ MaHSMoi +"' ");
-                Toast.makeText(getContext(), "ĐÃ CẬP NHẬT", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-                GetDataHocSinh();
+                try {
+                    database.QueryData("UPDATE "+DBHelper.TB_HOCSINH +" SET  "+DBHelper.COL_HOCSINH_HO+" = '"+ hoMoi+"', "+DBHelper.COL_HOCSINH_TEN+" = '"+ tenMoi+"'," +
+                            " "+DBHelper.COL_HOCSINH_PHAI+" = '"+ phaiMoi+"' , "+DBHelper.COL_HOCSINH_NGAYSINH+" = '"+ nSinhMoi+"'  WHERE "+DBHelper.COL_HOCSINH_MAHOCSINH+" ="+MaHS+"");
+                    Toast.makeText(getContext(), "ĐÃ CẬP NHẬT", Toast.LENGTH_SHORT).show();
+                    dialog.dismiss();
+                    GetDataHocSinh();
+                }catch (Exception e){
+                    Log.d("print",e.getMessage());
+                }
+
             }
         });
         btnHuy.setOnClickListener(new View.OnClickListener() {

@@ -179,7 +179,7 @@ public class StudentManagerFragment extends Fragment {
 
     public void layThongTin(DBHelper db){
         String ho, ten, phai, ngaysinh, malop = "";
-        Cursor data =db.GetData("SELECT "+ DBHelper.COL_HOCSINH_HO +", "+DBHelper.COL_TAIKHOAN_TEN +
+        Cursor data =db.GetData("SELECT "+ DBHelper.COL_HOCSINH_HO +", "+DBHelper.COL_HOCSINH_TEN +
                 ", " + DBHelper.COL_HOCSINH_PHAI + ", " + DBHelper.COL_HOCSINH_NGAYSINH + ", " + DBHelper.COL_HOCSINH_MALOP +
                 " FROM "+ DBHelper.TB_HOCSINH
                 +" WHERE "+ DBHelper.COL_HOCSINH_MAHOCSINH + "= " + maHS);

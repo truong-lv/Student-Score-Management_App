@@ -20,7 +20,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.studentscoremanagement.DSSV;
+//import com.example.studentscoremanagement.DSSV;
 import com.example.studentscoremanagement.Model.HocSinh;
 import com.example.studentscoremanagement.R;
 import com.example.studentscoremanagement.StudentManagerActivity;
@@ -31,17 +31,19 @@ import java.util.ArrayList;
 
 public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
 
-     DSSV context;
+     Context context;
      int layout;
      ArrayList<HocSinh> hocSinhList;
-     FragmentActivity dssvFragment;
+     FragmentActivity dssvActivity;
+     DSSVFragment dssvFragment;
 
-    public AdapterHocSinh(@NonNull Context context, int resource, @NonNull ArrayList<HocSinh> objects, FragmentActivity dssv) {
+    public AdapterHocSinh(@NonNull Context context, int resource, @NonNull ArrayList<HocSinh> objects, FragmentActivity dssv, DSSVFragment dssvFragment) {
         super(context, resource, objects);
-        this.context = (DSSV) context;
+        this.context = context;
         this.layout = resource;
         this.hocSinhList = objects;
-        this.dssvFragment = dssv;
+        this.dssvActivity = dssv;
+        this.dssvFragment=dssvFragment;
     }
 
 
@@ -76,9 +78,9 @@ public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
 
                 StudentManagerFragment studentManagerFragment = StudentManagerFragment.newInstance(Integer.parseInt(hocSinh.getMaHS()));
 
-                Toast.makeText(context, ""+dssvFragment, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, ""+dssvActivity, Toast.LENGTH_SHORT).show();
 
-                FragmentManager fragmentManager = dssvFragment.getSupportFragmentManager();
+                FragmentManager fragmentManager = dssvActivity.getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment, studentManagerFragment);
                 fragmentTransaction.addToBackStack(null);
@@ -97,7 +99,7 @@ public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
         imgEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.DialogSua(hocSinh.getMaHS(), hocSinh.getHo(), hocSinh.getTen(), hocSinh.getPhai(), hocSinh.getNgaySinh());
+                dssvFragment.DialogSua(hocSinh.getMaHS(), hocSinh.getHo(), hocSinh.getTen(), hocSinh.getPhai(), hocSinh.getNgaySinh());
 
             }
         });
@@ -106,7 +108,7 @@ public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
         imgDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.DialogXoa(hocSinh.getTen(),hocSinh.getMaHS());
+                dssvFragment.DialogXoa(hocSinh.getTen(),hocSinh.getMaHS());
             }
         });
 
