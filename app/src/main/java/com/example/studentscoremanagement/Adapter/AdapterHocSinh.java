@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +20,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.studentscoremanagement.DSSV;
+//import com.example.studentscoremanagement.DSSV;
 import com.example.studentscoremanagement.Model.HocSinh;
 import com.example.studentscoremanagement.R;
 import com.example.studentscoremanagement.StudentManagerActivity;
@@ -33,14 +34,16 @@ public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
      Context context;
      int layout;
      ArrayList<HocSinh> hocSinhList;
-     FragmentActivity dssvFragment;
+     FragmentActivity dssvActivity;
+     DSSVFragment dssvFragment;
 
-    public AdapterHocSinh(@NonNull Context context, int resource, @NonNull ArrayList<HocSinh> objects, FragmentActivity dssv) {
+    public AdapterHocSinh(@NonNull Context context, int resource, @NonNull ArrayList<HocSinh> objects, FragmentActivity dssv, DSSVFragment dssvFragment) {
         super(context, resource, objects);
         this.context = context;
         this.layout = resource;
         this.hocSinhList = objects;
-        this.dssvFragment = dssv;
+        this.dssvActivity = dssv;
+        this.dssvFragment=dssvFragment;
     }
 
 
@@ -55,6 +58,9 @@ public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         convertView= LayoutInflater.from(context).inflate(layout,null);
+
+        ImageView imgDelete = convertView.findViewById(R.id.imageViewDelete);
+        ImageView imgEdit = convertView.findViewById(R.id.imageViewEdit);
 
         TextView txtid=  convertView.findViewById(R.id.textViewMSHS);
         TextView txtHo=   convertView.findViewById(R.id.textViewHO);
@@ -72,9 +78,9 @@ public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
 
                 StudentManagerFragment studentManagerFragment = StudentManagerFragment.newInstance(Integer.parseInt(hocSinh.getMaHS()));
 
-                Toast.makeText(context, ""+dssvFragment, Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, ""+dssvActivity, Toast.LENGTH_SHORT).show();
 
-                FragmentManager fragmentManager = dssvFragment.getSupportFragmentManager();
+                FragmentManager fragmentManager = dssvActivity.getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment, studentManagerFragment);
                 fragmentTransaction.addToBackStack(null);
@@ -89,6 +95,22 @@ public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
         txtPhai.setText(hocSinh.getPhai());
         txtNgaySinh.setText(hocSinh.getNgaySinh());
 
+
+        imgEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dssvFragment.DialogSua(hocSinh.getMaHS(), hocSinh.getHo(), hocSinh.getTen(), hocSinh.getPhai(), hocSinh.getNgaySinh());
+
+            }
+        });
+
+
+        imgDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dssvFragment.DialogXoa(hocSinh.getTen(),hocSinh.getMaHS());
+            }
+        });
 
         return convertView;
     }

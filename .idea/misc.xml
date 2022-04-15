@@ -3,8 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/LTApp/gki/app/src/main/res/layout/activity_dssv.xml" value="0.2612359550561798" />
+        <entry key="..\:/LTApp/gki/app/src/main/res/layout/activity_dssv_ds.xml" value="0.24592391304347827" />
+        <entry key="..\:/LTApp/gki/app/src/main/res/layout/fragment_dssv.xml" value="0.33" />
+        <entry key="..\:/LTApp/gki/app/src/main/res/layout/themhocsinh.xml" value="0.5" />
+        <entry key="..\:/LTApp/gki/app/src/main/res/layout/xoa_sua_hs.xml" value="0.24592391304347827" />
         <entry key="..\:/Mobile-GK/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.181" />
-        <entry key="..\:/Mobile-GK/app/src/main/res/drawable/background_content.xml" value="0.1" />
         <entry key="..\:/Mobile-GK/app/src/main/res/drawable/background_login.xml" value="0.181" />
         <entry key="..\:/Mobile-GK/app/src/main/res/drawable/custom_btn_back_forward.xml" value="0.181" />
         <entry key="..\:/Mobile-GK/app/src/main/res/drawable/custom_button.xml" value="0.181" />
@@ -28,10 +32,6 @@
         <entry key="..\:/Mobile-GK/app/src/main/res/layout/activity_verify.xml" value="0.25416666666666665" />
         <entry key="..\:/Mobile-GK/app/src/main/res/layout/dialog_nhap_diem.xml" value="0.25416666666666665" />
         <entry key="..\:/Mobile-GK/app/src/main/res/layout/dialog_nhapdiem.xml" value="0.25416666666666665" />
-        <entry key="..\:/Mobile-GK/app/src/main/res/layout/fragment_dssv.xml" value="0.25416666666666665" />
-        <entry key="..\:/Mobile-GK/app/src/main/res/layout/fragment_home.xml" value="0.25416666666666665" />
-        <entry key="..\:/Mobile-GK/app/src/main/res/layout/fragment_student_manager.xml" value="0.25416666666666665" />
-        <entry key="..\:/Mobile-GK/app/src/main/res/layout/fragment_user.xml" value="0.25416666666666665" />
         <entry key="..\:/Mobile-GK/app/src/main/res/layout/report_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Mobile-GK/app/src/main/res/layout/themhocsinh.xml" value="0.25416666666666665" />
         <entry key="..\:/Mobile-GK/app/src/main/res/layout/xoa_sua_hs.xml" value="0.25416666666666665" />
@@ -50,7 +50,6 @@
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/drawable/style_edit_text.xml" value="0.206" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_bottom_navigation.xml" value="0.22826086956521738" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_choose_class.xml" value="0.22826086956521738" />
-        <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_custom_dialog.xml" value="0.11302083333333333" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_dssv.xml" value="0.25416666666666665" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_dssv_ds.xml" value="0.24010416666666667" />
         <entry key="..\:/MyCode/Android/StudentScoreManagement/app/src/main/res/layout/activity_login.xml" value="0.22826086956521738" />

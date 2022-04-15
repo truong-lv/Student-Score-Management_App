@@ -4,34 +4,54 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="horizontal">
+
         <TextView
+            android:layout_marginLeft="2dp"
             android:id="@+id/textViewMSHS"
-            android:textColor="@color/black"
             android:layout_width="45dp"
             android:layout_height="25dp"
-            android:text="MSHS" />
+            android:text="MSHS"
+            android:textAlignment="center"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/textViewHO"
-            android:layout_width="140dp"
+            android:layout_width="110dp"
             android:layout_height="25dp"
-            android:text="HO" />
+            android:text="HO"
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/textViewTEN"
-            android:layout_width="71dp"
+            android:layout_width="65dp"
             android:layout_height="25dp"
-            android:text="TEN" />
+            android:text="TEN"
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/textViewPHAI"
-            android:layout_width="75dp"
+            android:layout_width="50dp"
             android:layout_height="25dp"
-            android:text="PHAI" />
+            android:text="PHAI"
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/textViewNS"
             android:layout_width="80dp"
             android:layout_height="25dp"
-            android:text="NGAYSINH" />
+            android:text="NGAYSINH"
+            android:textAlignment="center" />
+
+        <ImageView
+            android:id="@+id/imageViewEdit"
+            android:src="@android:drawable/ic_menu_edit"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+
+        <ImageView
+            android:id="@+id/imageViewDelete"
+            android:layout_marginRight="2dp"
+            android:src="@android:drawable/ic_delete"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
 </LinearLayout>
