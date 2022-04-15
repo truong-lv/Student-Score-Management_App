@@ -3,6 +3,11 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/LTApp/gki/app/src/main/res/layout/activity_dssv.xml" value="0.2612359550561798" />
+        <entry key="..\:/LTApp/gki/app/src/main/res/layout/activity_dssv_ds.xml" value="0.24592391304347827" />
+        <entry key="..\:/LTApp/gki/app/src/main/res/layout/fragment_dssv.xml" value="0.17831813576494426" />
+        <entry key="..\:/LTApp/gki/app/src/main/res/layout/themhocsinh.xml" value="0.1" />
+        <entry key="..\:/LTApp/gki/app/src/main/res/layout/xoa_sua_hs.xml" value="0.24592391304347827" />
         <entry key="..\:/Mobile-GK/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.181" />
         <entry key="..\:/Mobile-GK/app/src/main/res/drawable/background_login.xml" value="0.181" />
         <entry key="..\:/Mobile-GK/app/src/main/res/drawable/custom_btn_back_forward.xml" value="0.181" />

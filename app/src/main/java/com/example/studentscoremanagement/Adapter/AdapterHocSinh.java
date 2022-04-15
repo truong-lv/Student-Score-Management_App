@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,13 +24,13 @@ import java.util.ArrayList;
 
 public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
 
-     Context context;
+     DSSV context;
      int layout;
      ArrayList<HocSinh> hocSinhList;
 
     public AdapterHocSinh(@NonNull Context context, int resource, @NonNull ArrayList<HocSinh> objects) {
         super(context, resource, objects);
-        this.context = context;
+        this.context = (DSSV) context;
         this.layout = resource;
         this.hocSinhList = objects;
     }
@@ -46,6 +47,9 @@ public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         convertView= LayoutInflater.from(context).inflate(layout,null);
+
+        ImageView imgDelete = convertView.findViewById(R.id.imageViewDelete);
+        ImageView imgEdit = convertView.findViewById(R.id.imageViewEdit);
 
         TextView txtid=  convertView.findViewById(R.id.textViewMSHS);
         TextView txtHo=   convertView.findViewById(R.id.textViewHO);
@@ -70,6 +74,22 @@ public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
         txtPhai.setText(hocSinh.getPhai());
         txtNgaySinh.setText(hocSinh.getNgaySinh());
 
+
+        imgEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.DialogSua(hocSinh.getMaHS(), hocSinh.getHo(), hocSinh.getTen(), hocSinh.getPhai(), hocSinh.getNgaySinh());
+
+            }
+        });
+
+
+        imgDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.DialogXoa(hocSinh.getTen(),hocSinh.getMaHS());
+            }
+        });
 
         return convertView;
     }

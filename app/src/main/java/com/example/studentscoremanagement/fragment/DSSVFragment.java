@@ -1,7 +1,10 @@
 package com.example.studentscoremanagement.fragment;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.studentscoremanagement.Adapter.AdapterHocSinh;
 import com.example.studentscoremanagement.DBHelper;
+import com.example.studentscoremanagement.DSSV;
 import com.example.studentscoremanagement.Model.HocSinh;
 import com.example.studentscoremanagement.R;
 
@@ -175,7 +179,7 @@ public class DSSVFragment extends Fragment {
 
 
     private  void ThemSinhVien(){
-        Dialog dialog = new Dialog(getContext());
+        Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.themhocsinh);
 
@@ -196,10 +200,11 @@ public class DSSVFragment extends Fragment {
                 String phai = editPhai.getText().toString();
                 String ngaysinh= editNSinh.getText().toString();
                 if(mhs.equals("") || ho.equals("") || ten.equals("") || phai.equals("") ||ngaysinh.equals("")){
-                    Toast.makeText(getContext(), "Vui lòng nhập không để trống!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(DSSV.this, "Vui lòng nhập không để trống!", Toast.LENGTH_SHORT).show();
                 }else {
-                    database.QueryData("INSERT INTO "+DBHelper.TB_HOCSINH+" VALUES ('"+mhs +"', '"+ho+"', '"+ten+"', '"+phai+"', '"+ngaysinh+"')");
-                    Toast.makeText(getContext(), "Đã Thêm", Toast.LENGTH_SHORT).show();
+                    database.QueryData("INSERT INTO " + DBHelper.TB_HOCSINH+" VALUES ( "+DBHelper.COL_HOCSINH_MAHOCSINH+" = '"+mhs +"', " +
+                            " "+DBHelper.COL_HOCSINH_HO+" ='"+ho+"', "+DBHelper.COL_HOCSINH_TEN+" ='"+ten+"', "+DBHelper.COL_HOCSINH_PHAI+" ='"+phai+"', "+DBHelper.COL_HOCSINH_NGAYSINH+" ='"+ngaysinh+"')");
+                    Toast.makeText(DSSV.this, "Đã Thêm", Toast.LENGTH_SHORT).show();
                     dialog.dismiss();
                     GetDataHocSinh();
                 }
@@ -213,5 +218,72 @@ public class DSSVFragment extends Fragment {
             }
         });
         dialog.show();
+    }
+
+
+    public void DialogSua(String MaHS, String Ho, String Ten, String Phai, String NgaySinh){
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.themhocsinh);
+
+        EditText editMHS = (EditText) dialog.findViewById(R.id.editTextNhapMHS);
+        EditText editHo = (EditText) dialog.findViewById(R.id.editTextNhapHo);
+        EditText editTen = (EditText) dialog.findViewById(R.id.editTextNhapTen);
+        EditText editPhai = (EditText) dialog.findViewById(R.id.editTextNhapPhai);
+        EditText editNSinh = (EditText) dialog.findViewById(R.id.editTextNhapNgaySinh);
+        Button btnHuy = (Button) dialog.findViewById(R.id.buttonHUY);
+        Button btnThem = (Button) dialog.findViewById(R.id.buttonLUU);
+
+        editMHS.setText(MaHS);
+        editHo.setText(Ho);
+        editTen.setText(Ten);
+        editPhai.setText(Phai);
+        editNSinh.setText(NgaySinh);
+
+        btnThem.setOnClickListener(new View.OnClickListener() {
+            private SQLiteOpenHelper database;
+
+            @Override
+            public void onClick(View view) {
+                String MaHSMoi = editMHS.getText().toString().trim();
+                String tenMoi = editTen.getText().toString().trim();
+                String hoMoi = editHo.getText().toString().trim();
+                String phaiMoi = editPhai.getText().toString().trim();
+                String nSinhMoi = editNSinh.getText().toString().trim();
+                DSSV.this.database.QueryData("UPDATE FROM "+DBHelper.TB_HOCSINH +" SET  "+DBHelper.COL_HOCSINH_TEN+" = '"+ hoMoi+"', "+DBHelper.COL_HOCSINH_TEN+" = '"+ tenMoi+"'," +
+                        " "+DBHelper.COL_HOCSINH_PHAI+" = '"+ phaiMoi+"' , "+DBHelper.COL_HOCSINH_NGAYSINH+" = '"+ nSinhMoi+"'  WHERE "+DBHelper.COL_HOCSINH_MAHOCSINH+" = '"+ MaHSMoi +"' ");
+                Toast.makeText(DSSV.this, "ĐÃ CẬP NHẬT", Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+                GetDataHocSinh();
+            }
+        });
+        btnHuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
+
+    public void DialogXoa( String ten, String MaHS){
+        AlertDialog.Builder dialogXoa = new AlertDialog.Builder(this);
+        dialogXoa.setMessage("Bạn có muốn xóa học sinh " + ten + " không?");
+        dialogXoa.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                database.QueryData("DELETE FROM "+DBHelper.TB_HOCSINH +" WHERE "+ DBHelper.COL_HOCSINH_MAHOCSINH+" = '" + MaHS + "'");
+                Toast.makeText(DSSV.this, "Đã xóa " + ten, Toast.LENGTH_SHORT).show();
+                GetDataHocSinh();
+            }
+        });
+        dialogXoa.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        dialogXoa.show();
     }
 }
