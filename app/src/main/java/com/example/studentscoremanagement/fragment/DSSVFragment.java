@@ -36,12 +36,10 @@ public class DSSVFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_CLASS_ID = "CLASS_ID";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String CLASS_ID;
 
     DBHelper database;
 
@@ -50,11 +48,6 @@ public class DSSVFragment extends Fragment {
     ArrayList<HocSinh> arrayHocSinh;
     AdapterHocSinh adapter;
     TextView textGV;
-
-    String idClass;
-
-    public static final String CLASS_ID="CLASS_ID";
-    public static final String TEACHER_NAME="TEACHER_NAME";
 
     public DSSVFragment() {
         // Required empty public constructor
@@ -65,15 +58,13 @@ public class DSSVFragment extends Fragment {
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
      * @return A new instance of fragment fragment_dssv.
      */
     // TODO: Rename and change types and number of parameters
-    public static DSSVFragment newInstance(String param1, String param2) {
+    public static DSSVFragment newInstance(String param1) {
         DSSVFragment fragment = new DSSVFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_CLASS_ID, param1);
         fragment.setArguments(args);
         return fragment;
     }
@@ -82,8 +73,7 @@ public class DSSVFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            CLASS_ID = getArguments().getString(ARG_CLASS_ID);
         }
     }
 
@@ -92,15 +82,12 @@ public class DSSVFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_dssv, container, false);
-        getClassId();
+
         //lvHocSinh.setAdapter(adapter);
         setControl(view);
         setEvent();
         GetDataHocSinh();
         return view;
-    }
-    private void getClassId() {
-        idClass= getArguments().getString(HomeFragment.ID_CLASS);
     }
 
     private void setControl(View view) {
@@ -113,6 +100,7 @@ public class DSSVFragment extends Fragment {
     }
 
     private void setEvent() {
+
         btnThem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,11 +110,8 @@ public class DSSVFragment extends Fragment {
         buttonBC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FragmentReport fragmentReport=new FragmentReport();
-                Bundle args = new Bundle();
-                args.putString(CLASS_ID,idClass);
-                args.putString(TEACHER_NAME,textGV.getText().toString());
-                fragmentReport.setArguments(args);
+
+                FragmentReport fragmentReport=FragmentReport.newInstance(CLASS_ID,textGV.getText().toString());
 
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -140,7 +125,7 @@ public class DSSVFragment extends Fragment {
 
     // để data ra mh
     private void GetDataHocSinh(){
-        Cursor dataHS = database.GetData("SELECT * FROM "+DBHelper.TB_HOCSINH+" WHERE "+DBHelper.COL_HOCSINH_MALOP+"='"+idClass+"'");//nghe ko bn ko nghe==>ông out meet r
+        Cursor dataHS = database.GetData("SELECT * FROM "+DBHelper.TB_HOCSINH+" WHERE "+DBHelper.COL_HOCSINH_MALOP+"='"+CLASS_ID+"'");//nghe ko bn ko nghe==>ông out meet r
 //ng
         dataHS.moveToFirst();
         do
