@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -20,6 +21,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,6 +56,8 @@ public class DSSVFragment extends Fragment {
     ArrayList<String> arrayLop;
     AdapterHocSinh adapter;
     TextView textClassId, textGV;
+    EditText edtTimKiem;
+    ImageView imageTimKiem;
 
     public DSSVFragment() {
         // Required empty public constructor
@@ -100,15 +104,18 @@ public class DSSVFragment extends Fragment {
     private void setControl(View view) {
 
         database=new DBHelper(getContext());
-        lvHocSinh = view.findViewById(R.id.listViewMSHS);
-        btnTruoc = view.findViewById(R.id.buttonTruoc);
-        btnSau = view.findViewById(R.id.buttonSau);
-        btnThem= view.findViewById(R.id.buttonThem);
-        buttonBC=view.findViewById(R.id.buttonBC);
-        arrayHocSinh = new ArrayList<>();
+
         arrayLop = new ArrayList<>();
-        textClassId=view.findViewById(R.id.textLop);
+        arrayHocSinh = new ArrayList<>();
         textGV=view.findViewById(R.id.textGV);
+        buttonBC=view.findViewById(R.id.buttonBC);
+        btnSau = view.findViewById(R.id.buttonSau);
+        textClassId=view.findViewById(R.id.textLop);
+        btnThem= view.findViewById(R.id.buttonThem);
+        btnTruoc = view.findViewById(R.id.buttonTruoc);
+        edtTimKiem = view.findViewById(R.id.edtTimKiem);
+        lvHocSinh = view.findViewById(R.id.listViewMSHS);
+        imageTimKiem = view.findViewById(R.id.imageTimKiem);
         adapter = new AdapterHocSinh(getContext(), R.layout.activity_dssv_ds, arrayHocSinh, getActivity(),this);
         lvHocSinh.setAdapter(adapter);
     }
@@ -153,6 +160,30 @@ public class DSSVFragment extends Fragment {
                 CLASS_ID = CLASS_ID.substring(0, 3) + (Integer.parseInt(newClassID) + 1);
                 GetDataHocSinh();
                 loadTrangThaiButton();
+            }
+        });
+
+        imageTimKiem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String noiDung = edtTimKiem.getText().toString().trim();
+
+                Cursor dataHS = database.GetData("SELECT * FROM " + DBHelper.TB_HOCSINH+
+                                " WHERE (hocSinh_maHocSinh LIKE '%" + noiDung + "%' OR hocSinh_ho LIKE '%"
+                                + noiDung + "%' OR hocSinh_ten LIKE '%" + noiDung + "%') AND "
+                        + DBHelper.COL_HOCSINH_MALOP + "= '" + CLASS_ID + "'" );
+
+                arrayHocSinh.clear();
+                while (dataHS.moveToNext())
+                {
+                    String id = dataHS.getString(0);
+                    String ho = dataHS.getString(1);
+                    String ten = dataHS.getString(2);
+                    String phai = dataHS.getString(3);
+                    String ngaySinh = dataHS.getString(4);
+                    arrayHocSinh.add(new HocSinh(id, ho, ten, phai, ngaySinh));
+                }
+                adapter.notifyDataSetChanged();
             }
         });
     }
@@ -206,7 +237,8 @@ public class DSSVFragment extends Fragment {
     }
 
 
-    private  void ThemSinhVien(){
+
+    private void ThemSinhVien(){
         Dialog dialog = new Dialog(getContext());
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.themhocsinh);
