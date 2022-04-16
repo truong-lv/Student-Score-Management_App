@@ -9,13 +9,17 @@
         <entry key="..\:/LTApp/gki/app/src/main/res/layout/themhocsinh.xml" value="0.5" />
         <entry key="..\:/LTApp/gki/app/src/main/res/layout/xoa_sua_hs.xml" value="0.24592391304347827" />
         <entry key="..\:/Mobile-GK/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.181" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/drawable/backgound_button.xml" value="0.181" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/drawable/background_content.xml" value="0.181" />
         <entry key="..\:/Mobile-GK/app/src/main/res/drawable/background_login.xml" value="0.181" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/drawable/background_report_item.xml" value="0.181" />
         <entry key="..\:/Mobile-GK/app/src/main/res/drawable/custom_btn_back_forward.xml" value="0.181" />
         <entry key="..\:/Mobile-GK/app/src/main/res/drawable/custom_button.xml" value="0.181" />
         <entry key="..\:/Mobile-GK/app/src/main/res/drawable/custom_spinner.xml" value="0.181" />
         <entry key="..\:/Mobile-GK/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.181" />
         <entry key="..\:/Mobile-GK/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.181" />
         <entry key="..\:/Mobile-GK/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.181" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/drawable/ic_user.xml" value="0.181" />
         <entry key="..\:/Mobile-GK/app/src/main/res/drawable/style_button.xml" value="0.181" />
         <entry key="..\:/Mobile-GK/app/src/main/res/drawable/style_edit_text.xml" value="0.181" />
         <entry key="..\:/Mobile-GK/app/src/main/res/drawable/vien.xml" value="0.181" />
@@ -32,6 +36,8 @@
         <entry key="..\:/Mobile-GK/app/src/main/res/layout/activity_verify.xml" value="0.25416666666666665" />
         <entry key="..\:/Mobile-GK/app/src/main/res/layout/dialog_nhap_diem.xml" value="0.25416666666666665" />
         <entry key="..\:/Mobile-GK/app/src/main/res/layout/dialog_nhapdiem.xml" value="0.25416666666666665" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/layout/fragment_dssv.xml" value="0.25416666666666665" />
+        <entry key="..\:/Mobile-GK/app/src/main/res/layout/fragment_student_manager.xml" value="0.264" />
         <entry key="..\:/Mobile-GK/app/src/main/res/layout/report_item.xml" value="0.25416666666666665" />
         <entry key="..\:/Mobile-GK/app/src/main/res/layout/themhocsinh.xml" value="0.25416666666666665" />
         <entry key="..\:/Mobile-GK/app/src/main/res/layout/xoa_sua_hs.xml" value="0.25416666666666665" />

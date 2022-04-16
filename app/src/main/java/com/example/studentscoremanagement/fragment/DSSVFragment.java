@@ -51,6 +51,7 @@ public class DSSVFragment extends Fragment {
     Button btnThem,buttonBC, btnTruoc, btnSau;
     ListView lvHocSinh;
     ArrayList<HocSinh> arrayHocSinh;
+    ArrayList<String> arrayLop;
     AdapterHocSinh adapter;
     TextView textClassId, textGV;
 
@@ -88,11 +89,11 @@ public class DSSVFragment extends Fragment {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_dssv, container, false);
 
-
-
         setControl(view);
         setEvent();
         GetDataHocSinh();
+        GetDataLop();
+        loadTrangThaiButton();
         return view;
     }
 
@@ -105,6 +106,7 @@ public class DSSVFragment extends Fragment {
         btnThem= view.findViewById(R.id.buttonThem);
         buttonBC=view.findViewById(R.id.buttonBC);
         arrayHocSinh = new ArrayList<>();
+        arrayLop = new ArrayList<>();
         textClassId=view.findViewById(R.id.textLop);
         textGV=view.findViewById(R.id.textGV);
         adapter = new AdapterHocSinh(getContext(), R.layout.activity_dssv_ds, arrayHocSinh, getActivity(),this);
@@ -137,19 +139,20 @@ public class DSSVFragment extends Fragment {
         btnTruoc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String newClassID = CLASS_ID.substring(3,CLASS_ID.length()-1);
-                CLASS_ID = CLASS_ID.substring(0, 2) + (Integer.parseInt(newClassID) - 1);
-                Toast.makeText(getContext(), CLASS_ID, Toast.LENGTH_SHORT).show();
+                String newClassID = CLASS_ID.substring(3);
+                CLASS_ID = CLASS_ID.substring(0, 3) + (Integer.parseInt(newClassID) - 1);
                 GetDataHocSinh();
+                loadTrangThaiButton();
             }
         });
 
         btnSau.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String newClassID = CLASS_ID.substring(3,CLASS_ID.length()-1);
-                CLASS_ID = CLASS_ID.substring(0, 2) + (Integer.parseInt(newClassID) + 1);
+                String newClassID = CLASS_ID.substring(3);
+                CLASS_ID = CLASS_ID.substring(0, 3) + (Integer.parseInt(newClassID) + 1);
                 GetDataHocSinh();
+                loadTrangThaiButton();
             }
         });
     }
@@ -180,7 +183,17 @@ public class DSSVFragment extends Fragment {
         textClassId.setText(CLASS_ID);
         textGV.setText(teacherName);
 
+    }
 
+    private void GetDataLop(){
+        String lop;
+
+        Cursor data = database.GetData("SELECT " + DBHelper.COL_LOP_MALOP + " FROM " + DBHelper.TB_LOP);
+        while(data.moveToNext())
+        {
+            lop = data.getString(0);
+            arrayLop.add(lop);
+        }
     }
 
 
@@ -306,5 +319,22 @@ public class DSSVFragment extends Fragment {
             }
         });
         dialogXoa.show();
+    }
+
+    private void loadTrangThaiButton() {
+
+        if(CLASS_ID.equals(arrayLop.get(0)))
+        {
+            btnTruoc.setEnabled(false);
+        }
+        else if(CLASS_ID.equals(arrayLop.get(arrayLop.size()-1)))
+        {
+            btnSau.setEnabled(false);
+        }
+        else
+        {
+            btnTruoc.setEnabled(true);
+            btnSau.setEnabled(true);
+        }
     }
 }
