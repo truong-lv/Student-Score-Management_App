@@ -6,52 +6,66 @@
     android:orientation="horizontal">
 
         <TextView
-            android:layout_marginLeft="2dp"
             android:id="@+id/textViewMSHS"
-            android:layout_width="45dp"
-            android:layout_height="25dp"
-            android:text="MSHS"
+            android:layout_width="25dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:text="MS"
             android:textAlignment="center"
-            android:textColor="@color/black" />
+            android:textSize="15dp" />
 
         <TextView
             android:id="@+id/textViewHO"
-            android:layout_width="110dp"
-            android:layout_height="25dp"
+            android:layout_width="130dp"
+            android:layout_height="wrap_content"
             android:text="HO"
-            android:textAlignment="center" />
+            android:textSize="15dp"
+            android:textAlignment="center"
+            android:paddingVertical="10dp"
+            android:paddingLeft="5dp"/>
 
         <TextView
             android:id="@+id/textViewTEN"
-            android:layout_width="65dp"
-            android:layout_height="25dp"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
             android:text="TEN"
-            android:textAlignment="center" />
+            android:textSize="15dp"
+            android:textAlignment="center"
+            android:paddingVertical="10dp"/>
 
         <TextView
             android:id="@+id/textViewPHAI"
-            android:layout_width="50dp"
-            android:layout_height="25dp"
+            android:layout_width="65dp"
+            android:layout_height="wrap_content"
+
             android:text="PHAI"
-            android:textAlignment="center" />
+            android:textSize="15dp"
+            android:textAlignment="center"
+            android:paddingVertical="10dp"/>
 
         <TextView
             android:id="@+id/textViewNS"
-            android:layout_width="80dp"
-            android:layout_height="25dp"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
             android:text="NGAYSINH"
-            android:textAlignment="center" />
+            android:textSize="15dp"
+            android:textAlignment="center"
+            android:paddingVertical="10dp"/>
 
         <ImageView
             android:id="@+id/imageViewEdit"
             android:src="@android:drawable/ic_menu_edit"
-            android:layout_width="25dp"
-            android:layout_height="25dp"/>
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4dp"/>
 
         <ImageView
             android:id="@+id/imageViewDelete"
             android:layout_marginRight="2dp"
             android:src="@android:drawable/ic_delete"
-            android:layout_width="25dp"
-            android:layout_height="25dp"/>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="4dp"
+            android:layout_gravity=""
+            />
 </LinearLayout>
