@@ -78,8 +78,6 @@ public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
 
                 StudentManagerFragment studentManagerFragment = StudentManagerFragment.newInstance(Integer.parseInt(hocSinh.getMaHS()));
 
-                Toast.makeText(context, ""+dssvActivity, Toast.LENGTH_SHORT).show();
-
                 FragmentManager fragmentManager = dssvActivity.getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment, studentManagerFragment);
@@ -100,7 +98,6 @@ public class AdapterHocSinh extends ArrayAdapter<HocSinh> {
             @Override
             public void onClick(View view) {
                 dssvFragment.DialogSua(hocSinh.getMaHS(), hocSinh.getHo(), hocSinh.getTen(), hocSinh.getPhai(), hocSinh.getNgaySinh());
-
             }
         });
 
