@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_content"
     tools:context=".fragment.DSSVFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="QUẢN LÝ HỌC SINH"
-            android:textColor="@color/white"
-            android:textSize="25dp"
-            android:textStyle="bold" />
+            style="@style/style_title"
+            android:text="QUẢN LÝ HỌC SINH"/>
 
         <LinearLayout
             android:layout_width="100dp"
@@ -106,13 +103,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp"
-            android:gravity="center">
+            android:layout_marginTop="5dp">
 
             <Button
                 android:id="@+id/buttonTruoc"
                 android:layout_width="80dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:textSize="12dp"
                 android:backgroundTint="#FFBF44"
                 android:layout_marginLeft="1dp"
@@ -124,28 +120,20 @@
                 android:layout_height="50dp"
                 android:textSize="12dp"
                 android:backgroundTint="#FFBF44"
-                android:layout_marginLeft="1dp"
+                android:layout_marginLeft="3dp"
                 android:text="SAU"/>
 
-            <Button
-                android:id="@+id/buttonThem"
-                android:layout_width="111dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="1dp"
-                android:backgroundTint="#00D1FF"
-                android:drawableRight="@android:drawable/ic_menu_edit"
-                android:text="THÊM"
-                android:textSize="12dp" />
 
             <Button
                 android:id="@+id/buttonBC"
                 android:layout_width="140dp"
                 android:layout_height="50dp"
-                android:textSize="12dp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="90dp"
                 android:backgroundTint="#61DF74"
-                android:layout_marginLeft="1dp"
                 android:drawableRight="@drawable/export"
-                android:text="IN BÁO CÁO"/>
+                android:text="XEM BÁO CÁO"
+                android:textSize="11dp" />
         </LinearLayout>
 
         <!--    <EditText-->
@@ -228,15 +216,25 @@
         </LinearLayout>
 
         <ListView
-            android:layout_marginLeft="5dp"
             android:id="@+id/listViewMSHS"
-            android:layout_width="420dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
         </ListView>
 
-
-
-
     </LinearLayout>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="70dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/buttonThem"
+        android:layout_marginLeft="1dp"
+        android:backgroundTint="#00D1FF"
+        app:srcCompat="@android:drawable/ic_input_add"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

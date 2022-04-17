@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_margin="15dp"
-        android:background="@drawable/style_edit_text"
+        android:background="@drawable/custom_edit_text"
         android:backgroundTint="@color/white"
         android:padding="5dp"
         android:textColor="@color/black"

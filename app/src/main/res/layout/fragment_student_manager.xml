@@ -17,12 +17,8 @@
             android:layout_height="wrap_content"
             android:gravity="center" >
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="QUẢN LÝ HỌC SINH"
-                android:textStyle="bold"
-                android:textSize="25dp"
-                android:textColor="#000" />
+                style="@style/style_title"
+                android:text="QUẢN LÝ HỌC SINH"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="300dp"
@@ -155,7 +151,7 @@
         </LinearLayout>
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="320dp"
+            android:layout_height="wrap_content"
             android:stretchColumns="*"
             android:id="@+id/tbDiem">
             <TableRow

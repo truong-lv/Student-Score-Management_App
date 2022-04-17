@@ -89,7 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/style_edit_text"
+                android:background="@drawable/custom_edit_text"
                 android:backgroundTint="#390073A5"
                 android:inputType="none"
                 android:padding="7dp"
@@ -116,7 +116,7 @@
                     android:layout_marginTop="10dp"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:background="@drawable/style_edit_text"
+                    android:background="@drawable/custom_edit_text"
                     android:backgroundTint="#390073A5"/>
             </com.google.android.material.textfield.TextInputLayout>
             <TextView
@@ -134,7 +134,7 @@
                 android:layout_marginTop="10dp"
                 android:padding="7dp"
                 android:textColor="@color/black"
-                android:background="@drawable/style_edit_text"
+                android:background="@drawable/custom_edit_text"
                 android:backgroundTint="#390073A5"/>
             <Button
                 android:id="@+id/btnUdateInfor"
