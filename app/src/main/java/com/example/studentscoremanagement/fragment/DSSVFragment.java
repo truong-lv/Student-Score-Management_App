@@ -31,6 +31,7 @@ import com.example.studentscoremanagement.DBHelper;
 //import com.example.studentscoremanagement.DSSV;
 import com.example.studentscoremanagement.Model.HocSinh;
 import com.example.studentscoremanagement.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -50,7 +51,8 @@ public class DSSVFragment extends Fragment {
     private String teacherName;
     DBHelper database;
 
-    Button btnThem,buttonBC, btnTruoc, btnSau;
+    Button buttonBC, btnTruoc, btnSau;
+    FloatingActionButton btnThem;
     ListView lvHocSinh;
     ArrayList<HocSinh> arrayHocSinh;
     ArrayList<String> arrayLop;

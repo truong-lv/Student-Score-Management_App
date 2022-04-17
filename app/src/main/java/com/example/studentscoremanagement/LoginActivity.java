@@ -37,11 +37,13 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        askPermissionAndSendSMS();
         addControl();
         setEvent();
     }
 
     private void setEvent() {
+
         database=new DBHelper(this);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,10 +53,10 @@ public class LoginActivity extends AppCompatActivity {
                 TaiKhoan tk =new TaiKhoan(username,pass);
                 if(tk.checkLogin(database)){
                     phoneNumber=tk.getSdt();
-                    codeVerify="Mã xác thực: "+randomVerifyCode();
+                    codeVerify=randomVerifyCode();
 
                     //Gửi tin nhắn
-                    //askPermissionAndSendSMS();
+                    sendSMS_by_smsManager();
 
                     Intent intent = new Intent(LoginActivity.this, VerifyActivity.class);
                     intent.putExtra(DBHelper.COL_TAIKHOAN_TEN,tk.getTenTaiKhoan());
@@ -64,7 +66,6 @@ public class LoginActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu không hợp lệ", Toast.LENGTH_SHORT).show();
                 }
-//
 
             }
         });
@@ -95,7 +96,6 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
         }
-        this.sendSMS_by_smsManager();
     }
 
     private void sendSMS_by_smsManager()  {
@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
             // Send Message
             smsManager.sendTextMessage(phoneNumber,
                     null,
-                    codeVerify,
+                    "Mã xác thực: "+codeVerify,
                     null,
                     null);
 
@@ -160,21 +160,6 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    // When results returned
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == MY_PERMISSION_REQUEST_CODE_SEND_SMS) {
-            if (resultCode == RESULT_OK) {
-                // Do something with data (Result returned).
-//                Toast.makeText(this, "Action OK", Toast.LENGTH_LONG).show();
-            } else if (resultCode == RESULT_CANCELED) {
-//                Toast.makeText(this, "Action canceled", Toast.LENGTH_LONG).show();
-            } else {
-//                Toast.makeText(this, "Action Failed", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
 
 }
