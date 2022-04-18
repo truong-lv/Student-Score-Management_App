@@ -213,6 +213,7 @@ public class StudentManagerFragment extends Fragment {
             maMH = data.getString(0);
             tenMH = data.getString(1);
             heSo = data.getString(2);
+            tongHeSo += Integer.parseInt(heSo);
             TableRow tbRow = new TableRow(getContext());
 
             TextView tv = new TextView(getContext());
@@ -241,7 +242,7 @@ public class StudentManagerFragment extends Fragment {
             {
                 diem = ""+dataDiem.getFloat(0);
                 tongDiem += dataDiem.getFloat(0)*Integer.parseInt(heSo);
-                tongHeSo += Integer.parseInt(heSo);
+
             }
             else
             {
