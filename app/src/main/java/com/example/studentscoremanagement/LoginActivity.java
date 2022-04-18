@@ -2,11 +2,13 @@ package com.example.studentscoremanagement;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
@@ -26,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     String phoneNumber, codeVerify;
 
     private static final int MY_PERMISSION_REQUEST_CODE_SEND_SMS = 1;
+    public final int REQUEST_CODE_FOR_PERMISSIONS = 654;
     private static final String LOG_TAG = "StudentScoreMn";
 
     public static final String USER_INFOR="USER_INFOR";
@@ -94,6 +97,16 @@ public class LoginActivity extends AppCompatActivity {
                         MY_PERMISSION_REQUEST_CODE_SEND_SMS
                 );
                 return;
+            }
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED &&
+                    ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(
+                        this,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.READ_EXTERNAL_STORAGE},
+                        REQUEST_CODE_FOR_PERMISSIONS);
             }
         }
     }

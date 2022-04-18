@@ -334,6 +334,7 @@ public class FragmentReport extends Fragment {
         //draw content table
         paint.setFakeBoldText(false);
         float scoreAvg=0;
+        int heso=0;
         for(int i=0;i<diemMonHocDTOs.size();i++)
         {
             y0+=height;
@@ -343,9 +344,12 @@ public class FragmentReport extends Fragment {
             drawRectangle(canvas,paint,x0+(width/col)*2,y0,width/col,height,String.valueOf(diemMonHoc.getHeSo()));
             String diem= diemMonHoc.getDiem()==-1?".":String.valueOf(diemMonHoc.getDiem());
             drawRectangle(canvas,paint,x0+(width/col)*3,y0,width/col,height,diem);
-            scoreAvg+=diemMonHoc.getDiem()==-1?0:diemMonHoc.getDiem();
+            heso+=diemMonHoc.getHeSo();
+            scoreAvg+=diemMonHoc.getDiem()==-1?0:(diemMonHoc.getDiem()*diemMonHoc.getHeSo());
         }
-        scoreAvg=(float) Math.round((scoreAvg/diemMonHocDTOs.size()) * 10) / 10;
+
+        scoreAvg=(float) Math.round((scoreAvg/heso) * 10) / 10;
+
         canvas.drawText("Tổng số môn học: "+diemMonHocDTOs.size(), x0, y0+=height*2, paint);
         canvas.drawText("Điểm trung bình: "+scoreAvg, x0+200, y0, paint);
         y0+=height;
@@ -354,23 +358,7 @@ public class FragmentReport extends Fragment {
         y0+=height*2;
     }
 
-    // Method for opening a pdf file
-    private void viewPdf(String directory, String file) {
 
-        File pdfFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)+ "/StudentScoreMn/" + file);
-        Uri path = Uri.fromFile(pdfFile);
-
-        // Setting the intent for pdf reader
-        Intent pdfIntent = new Intent(Intent.ACTION_VIEW);
-        pdfIntent.setDataAndType(path, "application/pdf");
-        pdfIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        Intent intent = Intent.createChooser(pdfIntent, "Open File");
-        try {
-            startActivity(intent );
-        } catch (ActivityNotFoundException e) {
-            Toast.makeText(getContext(), "Không thể đọc file PDF", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     private boolean checkPermission() {
         // checking of permissions.
