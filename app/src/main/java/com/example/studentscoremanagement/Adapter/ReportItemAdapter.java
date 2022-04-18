@@ -53,6 +53,8 @@ public class ReportItemAdapter extends ArrayAdapter<DiemHocSinhDTO> {
         TextView tvNameStudentRpt=convertView.findViewById(R.id.tvNameStudentRpt);
         TextView tvGenderStudentRpt=convertView.findViewById(R.id.tvGenderStudentRpt);
         TextView tvBirthStudentRpt=convertView.findViewById(R.id.tvBirthStudentRpt);
+        TextView tvSumSB=convertView.findViewById(R.id.tvSumSubject);
+        TextView tvAvg=convertView.findViewById(R.id.tvAvg);
         TableLayout tbListScore=convertView.findViewById(R.id.tbListScore);
 
 
@@ -71,6 +73,8 @@ public class ReportItemAdapter extends ArrayAdapter<DiemHocSinhDTO> {
         //set data cho tableLayout mon hoc
         ArrayList<DiemMonHocDTO> diemMonHocDTOs=diemHocSinhDTO.getDiemMonHocDTOS();
         int sttSubjectScore=1;
+        float scoreAvg=0;
+        int heso=0;
         for(DiemMonHocDTO diem:diemMonHocDTOs){
             TextView tvSTTSubject=new TextView(context);
             TextView tvSubjectName=new TextView(context);
@@ -107,12 +111,14 @@ public class ReportItemAdapter extends ArrayAdapter<DiemHocSinhDTO> {
             //add Row
             tbListScore.addView(tableRow);
             sttSubjectScore++;
+            heso+=diem.getHeSo();
+            scoreAvg+=diem.getDiem()==-1?0:(diem.getDiem()*diem.getHeSo());
 
         }
-        //ListView lvTableScore=convertView.findViewById(R.id.lvTableScore);
-        //ReportItemScoreAdapter reportItemScoreAdapter=new ReportItemScoreAdapter(context,R.layout.report_item_table,diemMonHocDTOs);
-        //lvTableScore.setAdapter(reportItemScoreAdapter);
+        scoreAvg=(float) Math.round((scoreAvg/heso) * 10) / 10;
 
+        tvSumSB.setText("Tổng số môn học: "+diemMonHocDTOs.size());
+        tvAvg.setText("Điểm trung bình: "+scoreAvg);
         return convertView;
     }
 }
